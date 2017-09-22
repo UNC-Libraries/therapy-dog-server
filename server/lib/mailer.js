@@ -48,7 +48,7 @@ const depositReceiptSender = transport.templateSender({
 
     callback(null, {
       subject: subjectTemplate(context),
-      text: textTemplate(context),
+      text: textTemplate(context, siteUrl),
       html: htmlTemplate(context, siteUrl)
     });
   }
@@ -64,7 +64,7 @@ const depositNotificationSender = transport.templateSender({
 
     callback(null, {
       subject: subjectTemplate(context),
-      text: textTemplate(context),
+      text: textTemplate(context, siteUrl),
       html: htmlTemplate(context, siteUrl)
     });
   }
