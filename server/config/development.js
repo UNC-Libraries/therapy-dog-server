@@ -21,7 +21,7 @@ module.exports = {
   SWORD_BASE_URL: 'http://localhost:8182/services/sword/collection/',
   SWORD_USERNAME: 'depositforms',
   SWORD_PASSWORD: 'depositforms',
-  SITE_URL: 'https://cdr.lib.unc.edu',
+  SITE_URL: 'https://example.com',
   GROUPS_BASE: 'unc:app:lib:cdr:depositor:depositforms',
   FORMS_DIRECTORY: path.join(__dirname, '../data/forms'),
   VOCABULARIES_DIRECTORY: path.join(__dirname, '../data/vocabularies'),
