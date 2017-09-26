@@ -41,15 +41,15 @@ function getTemplate(name, part) {
 }
 
 const depositReceiptSender = transport.templateSender({
-  render: function(context, callback) {
+  render: function(context, callback, siteUrl) {
     let subjectTemplate = getTemplate('deposit-receipt', 'subject');
     let textTemplate = getTemplate('deposit-receipt', 'text');
     let htmlTemplate = getTemplate('deposit-receipt', 'html');
 
     callback(null, {
       subject: subjectTemplate(context),
-      text: textTemplate(context),
-      html: htmlTemplate(context)
+      text: textTemplate(context, siteUrl),
+      html: htmlTemplate(context, siteUrl)
     });
   }
 }, {
@@ -57,15 +57,15 @@ const depositReceiptSender = transport.templateSender({
 });
 
 const depositNotificationSender = transport.templateSender({
-  render: function(context, callback) {
+  render: function(context, callback, siteUrl) {
     let subjectTemplate = getTemplate('deposit-notification', 'subject');
     let textTemplate = getTemplate('deposit-notification', 'text');
     let htmlTemplate = getTemplate('deposit-notification', 'html');
 
     callback(null, {
       subject: subjectTemplate(context),
-      text: textTemplate(context),
-      html: htmlTemplate(context)
+      text: textTemplate(context, siteUrl),
+      html: htmlTemplate(context, siteUrl)
     });
   }
 }, {
@@ -82,7 +82,7 @@ const depositNotificationSender = transport.templateSender({
  **/
 exports.sendDepositReceipt = function(form, summary, address) {
   return Promise.try(function() {
-    return depositReceiptSender({ to: address }, { form, items: summary });
+    return depositReceiptSender({ to: address }, { form, items: summary, siteUrl: config.SITE_URL });
   });
 };
 
@@ -97,7 +97,7 @@ exports.sendDepositReceipt = function(form, summary, address) {
 exports.sendDepositNotification = function(form, summary, addresses) {
   return Promise.try(function() {
     if (addresses.length > 0) {
-      return depositNotificationSender({ to: addresses }, { form, items: summary });
+      return depositNotificationSender({ to: addresses }, { form, items: summary, siteUrl: config.SITE_URL });
     }
   });
 };
