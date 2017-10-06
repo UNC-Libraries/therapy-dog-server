@@ -28,7 +28,9 @@ Start the API server:
 
     make run-server
 
-In a separate terminal, start the client:
+The application also requires the therapy-dog client app. 
+In a separate terminal, clone that app and follow its readme to for installing it. 
+Then start the client:
 
     make run-client
 
@@ -50,7 +52,9 @@ Start the API server:
 
     make run-server
 
-In a separate terminal, start the client:
+The application also requires the therapy-dog client app. 
+In a separate terminal, clone that app and follow its readme to for installing it. 
+Then start the client:
 
     make run-client
 
@@ -88,7 +92,7 @@ Start the API server:
 
     cd server && npm start
 
-In a separate terminal, start the client:
+In a separate terminal running the therapy-dog client app, start the client:
 
     cd client && npm start
 
@@ -100,7 +104,6 @@ We don't have CI set up yet, so always run `make check` before committing.
 
 The source code for some dependencies is added to the repository:
 
-  - for the client, Bower components and anything in the vendor/ directory
   - for the server, production npm dependencies (those listed in server/package.json under "dependencies")
 
 We don't add the source code for development npm dependencies (those listed in server/package.json under "devDependencies"), which are anything we need for development (for example, running tests) but not for actually running the client or server.
@@ -113,17 +116,6 @@ Add or remove dependencies separately from code changes. This makes reviewing a 
     aaaaaaa Implement NIH left-padding to avoid dependency on 'left-pad'.
     1234567 Ensure output is left-padded.
     abcdefg Add 'left-pad' dependency to server.
-
-### To add a Bower component to client
-
-    bower install --save DOMPurify
-    git add bower.json bower_components/DOMPurify
-    git commit -m "Add 'DOMPurify' Bower component to client."
-
-### To add a vendor dependency to client
-
-    git add vendor/normalize.css
-    git commit -m "Add 'normalize.css' vendor dependency to client."
 
 ### To add a production npm dependency to server
 
@@ -141,8 +133,7 @@ Add or remove dependencies separately from code changes. This makes reviewing a 
 ### How to run tests
 
     make check (Runs server side unit tests)
-    ember test --server or in a browser go to http://localhost:4200/tests (Runs client side integration tests)
-    
+   
 ### License Information
 Copyright 2017 The University of North Carolina at Chapel Hill
 
