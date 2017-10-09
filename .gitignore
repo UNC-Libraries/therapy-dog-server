@@ -1,3 +1,28 @@
 npm-debug.log
 .DS_Store
 */node_modules
+
+server/data/uploads
+server/data/forms/*.json
+server/data/vocabularies/*.json
+server/data/input/*.json
+
+server/coverage
+
+server/docs
+
+# npm binaries
+server/node_modules/.bin
+
+# npm devDependencies
+server/node_modules/istanbul
+server/node_modules/jscs
+server/node_modules/jsdoc
+server/node_modules/jshint
+server/node_modules/mocha
+server/node_modules/nodemon
+server/node_modules/xmldom
+server/node_modules/xpath
+server/node_modules/nock
+server/node_modules/node-mocks-http
+server/node_modules/smtp-server
