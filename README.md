@@ -1,4 +1,4 @@
-# Therapy Dog (Deposit Forms)
+# Therapy Dog - Server (Deposit Forms)
 
 This is a Node.js and Ember application that provides:
 
@@ -6,7 +6,7 @@ This is a Node.js and Ember application that provides:
   - an expression language for mapping form input to MODS and other XML schemas, and
   - routines for packaging and submitting METS deposits to the CDR.
 
-## Setup for development
+## Setup for forms server development
 
 Install Node.js.
 
@@ -16,7 +16,7 @@ If you are using Homebrew on macOS:
 
 If you are using Git for Windows, install Node.js using the v4.x.x LTS package available at <https://nodejs.org/en/>.
 
-Install Dependencies:
+Install Server Dependencies:
 
     make deps
 
@@ -42,7 +42,7 @@ Install Node.js as above.
 
 Rather than installing dependencies using `make deps` as above:
 
-    cd client && npm install
+    cd server && npm install
 
 Copy the example forms and vocabularies:
 
@@ -92,7 +92,7 @@ Start the API server:
 
     cd server && npm start
 
-In a separate terminal running the therapy-dog client app, start the client:
+In a separate terminal, clone that app and follow its readme to install it. Then start the client:
 
     cd client && npm start
 
@@ -100,7 +100,7 @@ In a separate terminal running the therapy-dog client app, start the client:
 
 We don't have CI set up yet, so always run `make check` before committing.
 
-## How to add dependencies
+## How to add dependencies to server
 
 The source code for some dependencies is added to the repository:
 
