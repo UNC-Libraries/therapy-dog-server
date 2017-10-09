@@ -53,7 +53,7 @@ Start the API server:
     make run-server
 
 The application also requires the therapy-dog client app. 
-In a separate terminal, clone that app and follow its readme to for installing it. 
+In a separate terminal, clone that app and follow its readme to install it. 
 Then start the client:
 
     make run-client
