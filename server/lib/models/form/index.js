@@ -1,6 +1,9 @@
 'use strict';
 
 const Promise = require('bluebird');
+const validator = require('validator');
+const he = require('he');
+const xssFilters = require('xss-filters');
 const Arrow = require('../../arrow');
 const checker = require('../../checker');
 const findById = require('../utils').findById;
@@ -83,6 +86,30 @@ function reduceValues(blocks, values, iterator, initial) {
   return Promise.reduce(blocks, function(result, block) {
     return iterator(result, block, values[block.key], (children, value, initial) => reduceValues(children, value, iterator, initial));
   }, initial);
+}
+
+/**
+ * Santizes user input. Note: validator library doesn't allow method chaining.
+ * Combination of 3 libs: validator, xssFilters and he.
+ * Removes hidden unicode chars, except newlines. Prevents XSS attack,
+ * removes 0 width chars, and converts most HTML special chars to their correct browser display value.
+ * @param value
+ * @returns {String}
+ */
+function validateValue(value) {
+  let specialChars = '\[\\u200B-\\u200D\\uFEFF\\\]'; // zero width unicode characters
+
+  let trimmed = validator.trim(value);
+  let stripped = validator.stripLow(trimmed);
+  let removeBlacklisted = validator.blacklist(stripped, specialChars);
+
+  let escaped = xssFilters.inHTMLData(removeBlacklisted);
+
+  if (!/&gt;|&lt;/.test(escaped)) {
+    return he.decode(escaped);
+  }
+
+  return escaped;
 }
 
 class Form {
@@ -263,6 +290,42 @@ class Form {
     return reduceValues(this.children, input, function(result, block, value, reduceChildren) {
       return Promise.resolve(blockSummarizers[block.type](block, value, reduceChildren)).then(summary => result.concat(summary));
     }, []);
+  }
+
+  /**
+   * Sanitize form information submitted by end users
+   * @param input
+   * @returns {Object}
+   */
+  sanitizeInput(input) {
+    let skipKeys = ['agreement', 'virtual:depositor-email'];
+    let allKeys = Object.keys(input);
+
+    allKeys.forEach((key) => {
+      if (skipKeys.indexOf(key) !== -1) {
+        return;
+      }
+
+      if (typeof input[key] === 'object') {
+        let itemKeys = Object.keys(input[key]);
+
+        itemKeys.forEach((k) => {
+          if (typeof input[key][k] === 'object') {
+            let subKeys = Object.keys(input[key][k]);
+
+            subKeys.forEach((q) => {
+              input[key][k][q] = validateValue(input[key][k][q]);
+            });
+          } else {
+            input[key][k] = validateValue(input[key][k]);
+          }
+        });
+      } else if (typeof input[key] === 'string') {
+        input[key] = validateValue(input[key]);
+      }
+    });
+
+    return input;
   }
 
   /**
