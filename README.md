@@ -8,6 +8,8 @@ This is a Node.js and Ember application that provides:
 
 ## Setup for forms server development
 
+#### Note: This application also requires [therapy-dog-client](https://github.com/UNC-Libraries/therapy-dog-client) to work correctly.
+
 Install Node.js.
 
 If you are using Homebrew on macOS:
