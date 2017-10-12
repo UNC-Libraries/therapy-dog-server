@@ -66,7 +66,7 @@ describe('XML', function() {
 
     let xml = new XML(root);
 
-    let builder = Xmlbuilder.create('xmlData');
+    let builder = Xmlbuilder.create('xmlData', { encoding: 'utf-8' });
     xml.render(builder);
 
     equal(builder.toString(), '<xmlData><mods><note>This is a thing</note></mods></xmlData>');
