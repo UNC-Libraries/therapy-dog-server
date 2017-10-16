@@ -1,6 +1,7 @@
 npm-debug.log
 .DS_Store
 */node_modules
+.idea
 
 server/data/uploads
 server/data/forms/*.json

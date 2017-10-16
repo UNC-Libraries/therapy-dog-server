@@ -63,7 +63,7 @@ exports.create = function(req, res, next) {
   }
 
   // Transform input...
-  let input = form.then(f => f.deserializeInput(deposit.values));
+  let input = form.then(f => f.deserializeInput(f.sanitizeInput(deposit.values)));
   let inputSummary = form.then(f => f.summarizeInput(deposit.values));
 
   // Generate a bundle and submission...
@@ -103,7 +103,7 @@ exports.debug = function(req, res, next) {
   let form = Form.findById(deposit.form);
 
   // Transform input...
-  let input = form.then(f => f.deserializeInput(deposit.values));
+  let input = form.then(f => f.deserializeInput(f.sanitizeInput(deposit.values)));
 
   // Generate a bundle and submission...
   let bundle = Promise.join(form, input, depositorSignature, generateBundle);

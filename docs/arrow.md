@@ -188,7 +188,7 @@ let xml = new XML(namePartTemplate.evaluate(namePartContext));
 xml.render().toString();
 // '<namePart type="given">Someone</namePart>'
 
-let builder = Xmlbuilder.create('name');
+let builder = Xmlbuilder.create('name', { encoding: 'utf-8' });
 xml.render(builder);
 builder.toString();
 // '<name><namePart type="given">Someone</namePart></name>'
