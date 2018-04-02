@@ -18,7 +18,7 @@
     "glob": "^6.0.4",
     "handlebars": "^4.0.5",
     "he": "^1.1.1",
-    "moment": "^2.13.0",
+    "moment": "^2.21.0",
     "multer": "^1.1.0",
     "nodemailer": "^2.4.1",
     "nodemailer-stub-transport": "^1.0.0",
@@ -33,7 +33,7 @@
   "devDependencies": {
     "istanbul": "^0.4.3",
     "jscs": "^2.11.0",
-    "jsdoc": "^3.4.0",
+    "jsdoc": "^3.5.0",
     "jshint": "^2.9.1",
     "mocha": "^2.4.5",
     "nock": "^8.0.0",
