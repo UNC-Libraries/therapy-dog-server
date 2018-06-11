@@ -136,28 +136,28 @@ class Form {
     this.attributes.destination = destination;
   }
 
-   /**
+  /**
    * @type {Boolean}
    */
   get allowDestinationOverride() {
     return this.attributes.allowDestinationOverride;
   }
 
-   /**
+  /**
    * @type {Boolean}
    */
   get addAnother() {
     return this.attributes.addAnother;
   }
 
-   /**
+  /**
    * @type {String}
    */
   get addAnotherText() {
     return this.attributes.addAnotherText;
   }
 
-   /**
+  /**
    * @type {Boolean}
    */
   get submitAsCurrentUser() {
