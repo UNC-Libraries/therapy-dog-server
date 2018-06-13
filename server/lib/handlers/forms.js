@@ -40,7 +40,7 @@ exports.show = function(req, res, next) {
       meta.authorized = false;
     }
 
-    if (req.headers['email']) {
+    if (req.headers['mail']) {
       meta.email = req.headers['email'];
     }
 
