@@ -41,7 +41,7 @@ exports.show = function(req, res, next) {
     }
 
     if (req.headers['mail']) {
-      meta.email = req.headers['email'];
+      meta.forwardedMail = req.headers['mail'];
     }
 
     res.header('Content-Type', 'application/vnd.api+json');
