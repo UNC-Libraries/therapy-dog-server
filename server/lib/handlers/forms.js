@@ -40,8 +40,8 @@ exports.show = function(req, res, next) {
       meta.authorized = false;
     }
 
-    if (req.headers['mail']) {
-      meta.mail = req.headers['mail'];
+    if (req.headers['email']) {
+      meta.email = req.headers['email'];
     }
 
     res.header('Content-Type', 'application/vnd.api+json');
