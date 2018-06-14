@@ -64,7 +64,7 @@ function postZip(form, zipFile, depositorEmail) {
       'Packaging': 'http://cdr.unc.edu/METS/profiles/Simple',
       'Content-Disposition': 'attachment; filename=package.zip',
       'Content-Type': 'application/zip',
-      'mail': depositorEmail
+      'forwardedMail': depositorEmail
     };
 
     if (form.depositor !== null) {
