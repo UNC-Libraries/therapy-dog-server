@@ -54,7 +54,7 @@ describe('Deposits handler', function() {
       reqheaders: {
         'Packaging': 'http://cdr.unc.edu/METS/profiles/Simple',
         'Content-Type': 'application/zip',
-        'mail': 'depositor@example.com'
+        'forwardedMail': 'depositor@example.com'
       }
     })
     .post('/services/sword/collection/uuid:1234', /^504b/)
@@ -106,7 +106,7 @@ describe('Deposits handler', function() {
       reqheaders: {
         'Packaging': 'http://cdr.unc.edu/METS/profiles/Simple',
         'Content-Type': 'application/zip',
-        'mail': 'depositor@example.com'
+        'forwardedMail': 'depositor@example.com'
       }
     })
     .post('/services/sword/collection/uuid:1234', /^504b/)
