@@ -49,7 +49,7 @@ end
 def href_name(node, type)
   if type == :mods && node["href"] =~ /^http:\/\/www.loc.gov\/mods\/v3#\/\/([^\/]+)\/(.+)$/
     $2
-  elsif type == :acl && node["href"] =~ /^http:\/\/cdr.unc.edu\/definitions\/acl#\/\/([^\/]+)\/(.+)$/
+  elsif type == :acl && node["href"] =~ /^http:\/\/dcr.unc.edu\/definitions\/acl#\/\/([^\/]+)\/(.+)$/
     $2
   else
     nil
@@ -130,7 +130,7 @@ def convert_mapped_elements(metadata_block, identifiers, type, path)
     if type == :acl && name == "accessControl"
       name = "acl:accessControl"
     
-      properties["xmlns:acl"] = { type: "string", value: "http://cdr.unc.edu/definitions/acl" }
+      properties["xmlns:acl"] = { type: "string", value: "http://dcr.unc.edu/definitions/acl" }
     end
   
     {
@@ -337,7 +337,7 @@ def convert_form(xml, form_id)
       type: "structure",
       name: "acl:accessControl",
       properties: {
-        "xmlns:acl" => { type: "string", value: "http://cdr.unc.edu/definitions/acl" }
+        "xmlns:acl" => { type: "string", value: "http://dcr.unc.edu/definitions/acl" }
       },
       children: [
         {
@@ -450,7 +450,7 @@ def convert_form(xml, form_id)
         type: "structure",
         name: "acl:accessControl",
         properties: {
-          "xmlns:acl" => { type: "string", value: "http://cdr.unc.edu/definitions/acl" },
+          "xmlns:acl" => { type: "string", value: "http://dcr.unc.edu/definitions/acl" },
           "acl:inherit" => { type: "string", value: "false" }
         },
         children: [
@@ -702,7 +702,7 @@ def download_vocabularies(xml, vocabs_output_path)
   doc = Nokogiri::XML(xml)
 
   doc.xpath("//ports").each do |port|
-    if port["vocabularyURL"] != nil && port["vocabularyURL"] =~ /^https:\/\/cdr.lib.unc.edu\/shared\/vocab\/.*\.txt$/
+    if port["vocabularyURL"] != nil && port["vocabularyURL"] =~ /^https:\/\/dcr.lib.unc.edu\/shared\/vocab\/.*\.txt$/
       id = File.basename(port["vocabularyURL"], ".txt")
 
       vocab = {

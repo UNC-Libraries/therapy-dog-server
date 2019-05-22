@@ -52,7 +52,7 @@ describe('Deposits handler', function() {
     // In order to ensure that a ZIP file was posted, we check for the hex encoding of ASCII "PK" (0x504b) at the beginning of the body. nock gives us a hexadecimal string for a request body it considers "binary".
     nock('http://localhost:8182', {
       reqheaders: {
-        'Packaging': 'http://cdr.unc.edu/METS/profiles/Simple',
+        'Packaging': 'http://dcr.unc.edu/METS/profiles/Simple',
         'Content-Type': 'application/zip',
         'forwardedMail': 'depositor@example.com'
       }
@@ -104,7 +104,7 @@ describe('Deposits handler', function() {
   it('should pass an error to next() if the SWORD endpoint responds with an error', function(done) {
     nock('http://localhost:8182', {
       reqheaders: {
-        'Packaging': 'http://cdr.unc.edu/METS/profiles/Simple',
+        'Packaging': 'http://dcr.unc.edu/METS/profiles/Simple',
         'Content-Type': 'application/zip',
         'forwardedMail': 'depositor@example.com'
       }

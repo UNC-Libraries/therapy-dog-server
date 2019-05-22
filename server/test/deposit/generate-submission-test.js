@@ -26,7 +26,7 @@ const select = xpath.useNamespaces({
   mets: 'http://www.loc.gov/METS/',
   mods: 'http://www.loc.gov/mods/v3',
   xlink: 'http://www.w3.org/1999/xlink',
-  acl: 'http://cdr.unc.edu/definitions/acl'
+  acl: 'http://dcr.unc.edu/definitions/acl'
 });
 const select1 = function(e, doc) { return select(e, doc, true); };
 
@@ -77,7 +77,7 @@ describe('Submission generation', function() {
             type: 'structure',
             name: 'accessControl',
             properties: {
-              xmlns: { type: 'string', value: 'http://cdr.unc.edu/definitions/acl' },
+              xmlns: { type: 'string', value: 'http://dcr.unc.edu/definitions/acl' },
               published: { type: 'string', value: 'false' }
             }
           }
@@ -121,7 +121,7 @@ describe('Submission generation', function() {
     it('should generate a mets element with the correct profile', function() {
       return doc.then(function(doc) {
         let mets = select1('/mets:mets', doc);
-        assert.equal(mets.getAttribute('PROFILE'), 'http://cdr.unc.edu/METS/profiles/Simple');
+        assert.equal(mets.getAttribute('PROFILE'), 'http://dcr.unc.edu/METS/profiles/Simple');
       });
     });
 
@@ -289,7 +289,7 @@ describe('Submission generation', function() {
       return doc.then(function(doc) {
         let smLink = select1('/mets:mets/mets:structLink/mets:smLink', doc);
         assert.ok(smLink);
-        assert.equal(select1('@xlink:arcrole', smLink).value, 'http://cdr.unc.edu/definitions/1.0/base-model.xml#defaultWebObject');
+        assert.equal(select1('@xlink:arcrole', smLink).value, 'http://dcr.unc.edu/definitions/1.0/base-model.xml#defaultWebObject');
         assert.equal(select1('@xlink:from', smLink).value, '#' + bundleAggregateItem.id);
         assert.equal(select1('@xlink:to', smLink).value, '#' + bundleMainItem.id);
       });

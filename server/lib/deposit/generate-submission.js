@@ -224,7 +224,7 @@ module.exports = function(form, bundle) {
     let mets = Xmlbuilder.create('mets', { encoding: 'utf-8' })
       .attribute('xmlns', 'http://www.loc.gov/METS/')
       .attribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
-      .attribute('PROFILE', 'http://cdr.unc.edu/METS/profiles/Simple');
+      .attribute('PROFILE', 'http://dcr.unc.edu/METS/profiles/Simple');
 
     generateMetsHdr(mets, bundle);
     generateDmdSec(mets, bundle);

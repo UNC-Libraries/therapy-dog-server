@@ -292,7 +292,7 @@
         "type": "structure",
         "name": "accessControl",
         "properties": {
-          "xmlns": { "type": "string", "value": "http://cdr.unc.edu/definitions/acl" },
+          "xmlns": { "type": "string", "value": "http://dcr.unc.edu/definitions/acl" },
           "published": { "type": "string", "value": "false" },
           "embargo-until": { "type": "lookup", "path": ["info", "embargo"] }
         }
