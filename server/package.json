@@ -2,7 +2,7 @@
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
-    "lint": "jshint --exclude ./node_modules,lib/arrow/parser.js,coverage,docs .",
+    "lint": "jshint --exclude ./node_modules,lib/arrow/parser.js,coverage,docs",
     "style": "jscs .",
     "test": "NODE_ENV=test mocha \"test/**/*-test.js\"",
     "cover": "NODE_ENV=test istanbul cover _mocha \"test/**/*-test.js\"",
