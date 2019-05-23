@@ -101,7 +101,7 @@ describe('Compact', function() {
       properties: {
         'xmlns': {
           type: 'string',
-          value: 'http://dcr.unc.edu/definitions/acl'
+          value: 'http://cdr.unc.edu/definitions/acl'
         },
         published: {
           type: 'lookup',
@@ -120,7 +120,7 @@ describe('Compact', function() {
       let expected = {
         type: 'accessControl',
         properties: {
-          xmlns: 'http://dcr.unc.edu/definitions/acl'
+          xmlns: 'http://cdr.unc.edu/definitions/acl'
         },
         children: []
       };

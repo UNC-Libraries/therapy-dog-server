@@ -78,7 +78,7 @@ function generateAgreementFileItem(agreements, values, depositorSignature) {
   let xml = new XML({
     type: 'acl:accessControl',
     properties: {
-      'xmlns:acl': 'http://dcr.unc.edu/definitions/acl',
+      'xmlns:acl': 'http://cdr.unc.edu/definitions/acl',
       'acl:published': 'false',
       'acl:inherit': 'false'
     },
@@ -109,7 +109,7 @@ module.exports = function(form, values, depositorSignature) {
 
   let main = generateOneFileItem(form.bundle.main, form.metadata, values);
 
-  let link = new Link(main, 'http://dcr.unc.edu/definitions/1.0/base-model.xml#defaultWebObject');
+  let link = new Link(main, 'http://cdr.unc.edu/definitions/1.0/base-model.xml#defaultWebObject');
 
   let agreement;
   if (form.bundle.agreements) {

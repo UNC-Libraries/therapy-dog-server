@@ -61,7 +61,7 @@ function postZip(form, zipFile, depositorEmail) {
   return new Promise(function(resolve, reject) {
     let body = fs.readFileSync(zipFile);
     let headers = {
-      'Packaging': 'http://dcr.unc.edu/METS/profiles/Simple',
+      'Packaging': 'http://cdr.unc.edu/METS/profiles/Simple',
       'Content-Disposition': 'attachment; filename=package.zip',
       'Content-Type': 'application/zip',
       'forwardedMail': depositorEmail

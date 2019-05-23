@@ -274,7 +274,7 @@ describe('Bundle generation', function() {
       let aggregate = bundle.children[0];
       let main = aggregate.children.find(i => i.label === 'thesis.pdf');
       let link = aggregate.children.find(i => i instanceof Link);
-      assert.equal(link.rel, 'http://dcr.unc.edu/definitions/1.0/base-model.xml#defaultWebObject');
+      assert.equal(link.rel, 'http://cdr.unc.edu/definitions/1.0/base-model.xml#defaultWebObject');
       assert.deepEqual(link.target, main);
     });
 
