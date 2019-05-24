@@ -702,7 +702,7 @@ def download_vocabularies(xml, vocabs_output_path)
   doc = Nokogiri::XML(xml)
 
   doc.xpath("//ports").each do |port|
-    if port["vocabularyURL"] != nil && port["vocabularyURL"] =~ /^https:\/\/cdr.lib.unc.edu\/shared\/vocab\/.*\.txt$/
+    if port["vocabularyURL"] != nil && port["vocabularyURL"] =~ /^https:\/\/dcr.lib.unc.edu\/shared\/vocab\/.*\.txt$/
       id = File.basename(port["vocabularyURL"], ".txt")
 
       vocab = {
