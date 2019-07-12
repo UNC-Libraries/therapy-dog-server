@@ -26,7 +26,7 @@ exports.getRemoteUser = function(req, res, next) {
 };
 
 exports.requireRemoteUser = function(req, res, next) {
-  if (req.remoteUser) {
+  if (req.remoteUser || (config.DEBUG && /AUTHENTICATION_SPOOFING/.test(req.headers.cookie))) {
     next();
   } else {
     res.status(401);
