@@ -20,6 +20,7 @@ const archiver = require('archiver');
 const tmp = require('tmp');
 const config = require('../../config');
 const SwordError = require('../errors').SwordError;
+const logging = require('../logging');
 
 function makeZip(submission) {
   return new Promise(function(resolve, reject) {
@@ -58,8 +59,7 @@ function makeZip(submission) {
 }
 
 function postZip(form, zipFile, depositorEmail) {
-  console.error("Made it to postZip e");
-  console.log("Made it to postZip");
+  logging.error("Made it to postZip e");
   return new Promise(function(resolve, reject) {
     let body = fs.readFileSync(zipFile);
     let headers = {
@@ -78,8 +78,7 @@ function postZip(form, zipFile, depositorEmail) {
       }
     }
     
-    console.error("Excuting request e", form.destination);
-    console.log("Excuting request", form.destination);
+    logging.error("Excuting request e", form.destination);
 
     request.post(form.destination, {
       strictSSL: false,
@@ -92,8 +91,7 @@ function postZip(form, zipFile, depositorEmail) {
         sendImmediately: true
       }
     }, function(err, response, body) {
-      console.error("Completed request e", form.destination, err);
-      console.log("Completed request", form.destination, err);
+      logging.error("Completed request e", form.destination, err);
       /* istanbul ignore if */
       if (err) {
         // Ignoring ECONNRESETs for the purpose of determining if the deposit failed

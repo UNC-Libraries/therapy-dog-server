@@ -26,8 +26,6 @@ const config = require('../../config');
 
 exports.create = function(req, res, next) {
   let deposit = req.body;
-  console.error("Creating deposit e");
-  console.log("Creating deposit");
   logging.error("Creating deposit");
 
   // Find the form...
@@ -58,8 +56,6 @@ exports.create = function(req, res, next) {
     }
   });
   
-  console.error("Dest set e");
-  console.log("Dest set");
   logging.error("Dest set");
 
   let depositorSignature;
@@ -89,9 +85,7 @@ exports.create = function(req, res, next) {
     );
   }
   
-  console.error("Sub deposit e");
-  console.log("Sub deposit");
-  logging.error("Sub deposit");
+  logging.error("Sub deposit", form.destination);
 
   // Submit the deposit, send email notifications, send response.
   Promise.join(form, submission, deposit.depositorEmail, submitZip)
@@ -99,7 +93,6 @@ exports.create = function(req, res, next) {
   .then(() => Promise.all(sendNotifications))
   .catch(function(err) {
     console.error("Failed deposit e", err);
-    console.log("Failed deposit e", err);
     logging.error("Failed deposit e", err);
     if (err instanceof SwordError) {
       logging.error('Received error response from SWORD endpoint: %s', err.extra.body);
