@@ -58,6 +58,8 @@ function makeZip(submission) {
 }
 
 function postZip(form, zipFile, depositorEmail) {
+  console.error("Made it to postZip e");
+  console.log("Made it to postZip");
   return new Promise(function(resolve, reject) {
     let body = fs.readFileSync(zipFile);
     let headers = {
@@ -75,6 +77,9 @@ function postZip(form, zipFile, depositorEmail) {
         headers['forwardedGroups'] += ';' + form.isMemberOf;
       }
     }
+    
+    console.error("Excuting request e", form.destination);
+    console.log("Excuting request", form.destination);
 
     request.post(form.destination, {
       strictSSL: false,
@@ -87,6 +92,8 @@ function postZip(form, zipFile, depositorEmail) {
         sendImmediately: true
       }
     }, function(err, response, body) {
+      console.error("Completed request e", form.destination, err);
+      console.log("Completed request", form.destination, err);
       /* istanbul ignore if */
       if (err) {
         // Ignoring ECONNRESETs for the purpose of determining if the deposit failed
