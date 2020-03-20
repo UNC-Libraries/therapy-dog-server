@@ -21,9 +21,11 @@ const tmp = require('tmp');
 const config = require('../../config');
 const SwordError = require('../errors').SwordError;
 
+var options = { dir: config.UPLOADS_DIRECTORY }
+
 function makeZip(submission) {
   return new Promise(function(resolve, reject) {
-    tmp.tmpName(function(err, zipFile) {
+    tmp.tmpName(options, function(err, zipFile) {
       /* istanbul ignore next */
       if (err) {
         reject(err);
