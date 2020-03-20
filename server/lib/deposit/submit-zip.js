@@ -52,6 +52,9 @@ function makeZip(submission) {
           archive.append(submission[name], { name: name });
         } else {
           archive.append(fs.createReadStream(submission[name]), { name: name });
+          fs.unlink(submission[name], (err) => {
+            if (err) throw err;
+          });
         }
       });
 
