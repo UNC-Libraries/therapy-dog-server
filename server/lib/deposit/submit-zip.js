@@ -22,6 +22,7 @@ const config = require('../../config');
 const SwordError = require('../errors').SwordError;
 
 var options = { dir: config.UPLOADS_DIRECTORY }
+tmp.setGracefulCleanup();
 
 function makeZip(submission) {
   return new Promise(function(resolve, reject) {
@@ -106,6 +107,9 @@ function postZip(form, zipFile, depositorEmail) {
         }));
       } else {
         resolve();
+        fs.unlink(zipFile, (err) => {
+          if (err) throw err;
+        });
       }
     });
   });
