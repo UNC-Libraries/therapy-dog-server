@@ -53,7 +53,9 @@ function makeZip(submission) {
         } else {
           archive.append(fs.createReadStream(submission[name]), { name: name });
           fs.unlink(submission[name], (err) => {
-            if (err) throw err;
+            if (err) {
+              throw err;
+            }
           });
         }
       });
@@ -111,7 +113,9 @@ function postZip(form, zipFile, depositorEmail) {
       } else {
         resolve();
         fs.unlink(zipFile, (err) => {
-          if (err) throw err;
+          if (err) {
+            throw err;
+          }
         });
       }
     });
