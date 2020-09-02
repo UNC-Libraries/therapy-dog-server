@@ -40,37 +40,37 @@ function getTemplate(name, part) {
   return Handlebars.compile(fs.readFileSync(path.join(__dirname, `../templates/${name}.${part}.hbs`)).toString());
 }
 
-const depositReceiptSender = transport.templateSender({
-  render: function(context, callback, siteUrl) {
-    let subjectTemplate = getTemplate('deposit-receipt', 'subject');
-    let textTemplate = getTemplate('deposit-receipt', 'text');
-    let htmlTemplate = getTemplate('deposit-receipt', 'html');
+function depositReceiptSender(context, callback, siteUrl) {
+  let subjectTemplate = getTemplate('deposit-receipt', 'subject');
+  let textTemplate = getTemplate('deposit-receipt', 'text');
+  let htmlTemplate = getTemplate('deposit-receipt', 'html');
 
-    callback(null, {
-      subject: subjectTemplate(context),
-      text: textTemplate(context, siteUrl),
-      html: htmlTemplate(context, siteUrl)
-    });
-  }
-}, {
-  from: config.FROM_EMAIL
-});
+  let message = {
+    subject: subjectTemplate(context),
+    text: textTemplate(context, siteUrl),
+    html: htmlTemplate(context, siteUrl),
+    to: context.to,
+    from: config.FROM_EMAIL
+  };
 
-const depositNotificationSender = transport.templateSender({
-  render: function(context, callback, siteUrl) {
-    let subjectTemplate = getTemplate('deposit-notification', 'subject');
-    let textTemplate = getTemplate('deposit-notification', 'text');
-    let htmlTemplate = getTemplate('deposit-notification', 'html');
+  return transport.sendMail(message);
+}
 
-    callback(null, {
-      subject: subjectTemplate(context),
-      text: textTemplate(context, siteUrl),
-      html: htmlTemplate(context, siteUrl)
-    });
-  }
-}, {
-  from: config.FROM_EMAIL
-});
+function depositNotificationSender(context) {
+  let subjectTemplate = getTemplate('deposit-notification', 'subject');
+  let textTemplate = getTemplate('deposit-notification', 'text');
+  let htmlTemplate = getTemplate('deposit-notification', 'html');
+
+  let message = {
+    subject: subjectTemplate(context),
+    text: textTemplate(context, context.siteUrl),
+    html: htmlTemplate(context, context.siteUrl),
+    to: context.to,
+    from: config.FROM_EMAIL
+  };
+
+  return transport.sendMail(message);
+}
 
 /**
  * Send a deposit receipt email.
@@ -82,7 +82,7 @@ const depositNotificationSender = transport.templateSender({
  **/
 exports.sendDepositReceipt = function(form, summary, address) {
   return Promise.try(function() {
-    return depositReceiptSender({ to: address }, { form, items: summary, siteUrl: config.SITE_URL });
+    return depositReceiptSender({ form: form, items: summary, siteUrl: config.SITE_URL, to: address });
   });
 };
 
@@ -97,7 +97,7 @@ exports.sendDepositReceipt = function(form, summary, address) {
 exports.sendDepositNotification = function(form, summary, addresses) {
   return Promise.try(function() {
     if (addresses.length > 0) {
-      return depositNotificationSender({ to: addresses }, { form, items: summary, siteUrl: config.SITE_URL });
+      return depositNotificationSender({ form: form, items: summary, siteUrl: config.SITE_URL, to: addresses });
     }
   });
 };

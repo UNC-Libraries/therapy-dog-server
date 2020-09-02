@@ -34,11 +34,7 @@ exports.show = function(req, res, next) {
       meta.debug = true;
     }
 
-    if (req.remoteUser || (meta.debug && /AUTHENTICATION_SPOOFING/.test(req.headers.cookie))) {
-      meta.authorized = true;
-    } else {
-      meta.authorized = false;
-    }
+    meta.authorized = req.remoteUser || (meta.debug && /AUTHENTICATION_SPOOFING/.test(req.headers.cookie));
 
     if (req.headers['mail']) {
       meta.mail = req.headers['mail'];

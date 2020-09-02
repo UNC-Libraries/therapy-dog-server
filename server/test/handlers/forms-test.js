@@ -38,7 +38,7 @@ describe('Forms handler', function() {
       assert.equal('article', document.data.id);
       assert.equal('Article Form', document.data.attributes.title);
       assert.equal(undefined, document.data.attributes.children);
-      assert.equal(false, document.meta.authorized);
+      assert.equal(undefined, document.meta.authorized);
 
       done();
     });
@@ -67,7 +67,7 @@ describe('Forms handler', function() {
       assert.equal('article', document.data.id);
       assert.equal('Article Form', document.data.attributes.title);
       assert.ok(Array.isArray(document.data.attributes.children), 'children attribute should be an array');
-      assert.equal(true, document.meta.authorized);
+      assert.equal('someone', document.meta.authorized);
       assert.equal('someone@example.com', document.meta.mail);
 
       done();

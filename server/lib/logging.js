@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
   winston.clear();
 
   transports.forEach(function(transport) {
-    winston.add(transport, {}, true);
+    winston.add(transport);
   });
 
   errorLogger = expressWinston.errorLogger({
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   winston.clear();
 
-  winston.add(winston.transports.Console, {
+  winston.add(new winston.transports.Console, {
     level: 'debug',
     prettyPrint: true,
     colorize: true

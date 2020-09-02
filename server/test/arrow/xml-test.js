@@ -125,6 +125,6 @@ describe('XML', function() {
 
     let xml = new XML(root);
 
-    equal(xml.render().toString(), '<values property="[object Object]" childAttrWithChildren="[object Object]" childAttrWithValueProperty="[object Object]">[object Object]</values>');
+    equal(xml.render().toString(), '<values property="[object Object]" childAttrWithChildren="[object Object]" childAttrWithValueProperty="[object Object]"><a>1</a>[object Object]</values>');
   });
 });

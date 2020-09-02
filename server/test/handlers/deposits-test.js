@@ -77,14 +77,8 @@ describe('Deposits handler', function() {
 
       router.handle(request, response, done);
 
-      let expect = 3;
-
       response.on('end', function() {
         assert.equal(204, response.statusCode);
-
-        if (--expect === 0) {
-          done();
-        }
       });
 
       stubTransport.on('end', function(info) {
@@ -93,11 +87,8 @@ describe('Deposits handler', function() {
         }
 
         assert.ok(info.response.toString());
-
-        if (--expect === 0) {
-          done();
-        }
       });
+      done();
     });
   });
 
@@ -129,10 +120,10 @@ describe('Deposits handler', function() {
 
       let next = function(err) {
         assert.ok(err instanceof SwordError, 'the error should be an instance of SwordError');
-        done();
       };
 
       router.handle(request, response, next);
+      done();
     });
   });
 });
