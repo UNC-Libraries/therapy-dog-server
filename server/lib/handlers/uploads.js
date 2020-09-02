@@ -22,7 +22,7 @@ exports.create = function(req, res, next) {
     })
     .then(function(data) {
       res.header('Content-Type', 'application/vnd.api+json');
-      res.send(new Buffer(JSON.stringify({ data: data })));
+      res.send(Buffer.from(JSON.stringify({ data: data })));
     })
     .catch(function(err) {
       next(err);

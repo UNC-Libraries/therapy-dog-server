@@ -23,7 +23,7 @@ const createTestUpload = require('../test/test-helpers').createTestUpload;
 
 let getForm = Form.findById('article');
 
-let getUpload = createTestUpload('article.pdf', 'application/pdf', new Buffer('lorem ipsum'));
+let getUpload = createTestUpload('article.pdf', 'application/pdf', Buffer.from('lorem ipsum'));
 
 let getInput = Promise.all([
   getUpload,

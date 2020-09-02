@@ -58,10 +58,10 @@ describe('Forms handler', function() {
       eventEmitter: require('events').EventEmitter
     });
 
-    router.handle(request, response, done);
+    router.handle(request, response);
 
     response.on('end', function() {
-      assert.equal(200, response.statusCode);
+      assert.equal(200, response.statusCode, done);
 
       let document = JSON.parse(response._getData());
       assert.equal('article', document.data.id);

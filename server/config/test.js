@@ -13,6 +13,7 @@
 // limitations under the License.
 'use strict';
 
+const os = require('os');
 const path = require('path');
 
 module.exports = {
@@ -25,7 +26,7 @@ module.exports = {
   GROUPS_BASE: 'unc:app:lib:cdr:depositor:depositforms',
   FORMS_DIRECTORY: path.join(__dirname, '../test/fixtures/forms'),
   VOCABULARIES_DIRECTORY: path.join(__dirname, '../test/fixtures/vocabularies'),
-  UPLOADS_DIRECTORY: path.join('test/fixtures/uploads'),
+  UPLOADS_DIRECTORY: path.join(os.tmpdir(), 'test/fixtures/uploads'),
   FROM_EMAIL: 'admin@example.com',
   MAILER_CONNECTION_URL: 'stub'
 };

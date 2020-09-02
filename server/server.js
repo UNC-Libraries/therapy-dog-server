@@ -41,7 +41,7 @@ app.use(function(err, req, res, next) {
   }
   res.status(500);
   res.header('Content-Type', 'application/vnd.api+json');
-  res.send(new Buffer(JSON.stringify({ errors: [ { status: '500', title: 'Internal server error' } ] })));
+  res.send(Buffer.from(JSON.stringify({ errors: [ { status: '500', title: 'Internal server error' } ] })));
 });
 
 let server = app.listen(config.PORT, config.HOST, function() {

@@ -210,8 +210,8 @@ describe('Form', function() {
     it('transforms values to the correct shape, with correct vocabulary terms and upload instances', function() {
       let form = Form.findById('article');
       let uploads = Promise.props({
-        article: createTestUpload('article.pdf', 'application/pdf', new Buffer('lorem ipsum')),
-        supplemental: createTestUpload('data.csv', 'application/csv', new Buffer('lorem ipsum'))
+        article: createTestUpload('article.pdf', 'application/pdf', Buffer.from('lorem ipsum')),
+        supplemental: createTestUpload('data.csv', 'application/csv', Buffer.from('lorem ipsum'))
       });
 
       return Promise.all([ form, uploads ]).spread((form, uploads) => form.deserializeInput({
@@ -257,8 +257,8 @@ describe('Form', function() {
     it('transforms values to the correct shape, with correct vocabulary terms and upload instances', function() {
       let form = Form.findById('article');
       let uploads = Promise.props({
-        article: createTestUpload('article.pdf', 'application/pdf', new Buffer('lorem ipsum')),
-        supplemental: createTestUpload('data.csv', 'application/csv', new Buffer('lorem ipsum'))
+        article: createTestUpload('article.pdf', 'application/pdf', Buffer.from('lorem ipsum')),
+        supplemental: createTestUpload('data.csv', 'application/csv', Buffer.from('lorem ipsum'))
       });
 
       return Promise.all([ form, uploads ]).spread((form, uploads) => form.deserializeInput(form.sanitizeInput({
@@ -309,7 +309,7 @@ describe('Form', function() {
   describe('#summarizeInput()', function() {
     it('should transform input to a summary usable by mailers', function() {
       let form = Form.findById('article');
-      let article = createTestUpload('article.pdf', 'application/pdf', new Buffer('lorem ipsum'));
+      let article = createTestUpload('article.pdf', 'application/pdf', Buffer.from('lorem ipsum'));
       let summary = Promise.all([ form, article ]).spread((f, a) => f.summarizeInput({
         authors: [
           { first: 'Some', last: 'Author' }
@@ -363,7 +363,7 @@ describe('Form', function() {
 
     it('does not assign terms not found in a literal options array', function() {
       let form = Form.findById('article');
-      let article = createTestUpload('article.pdf', 'application/pdf', new Buffer('lorem ipsum'));
+      let article = createTestUpload('article.pdf', 'application/pdf', Buffer.from('lorem ipsum'));
       let summary = Promise.all([ form, article ]).spread((f, a) => f.summarizeInput({
         authors: [
           { first: 'Some', last: 'Author' }

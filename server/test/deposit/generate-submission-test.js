@@ -85,7 +85,7 @@ describe('Submission generation', function() {
       ]
     });
 
-    let buffer = new Buffer('lorem ipsum');
+    let buffer = Buffer.from('lorem ipsum');
     let thesis = buildTestUpload('thesis.pdf', 'application/pdf', buffer);
 
     let values = {
@@ -265,7 +265,7 @@ describe('Submission generation', function() {
       metadata: []
     });
 
-    let buffer = new Buffer('lorem ipsum');
+    let buffer = Buffer.from('lorem ipsum');
     let thesis = buildTestUpload('thesis.pdf', 'application/pdf', buffer);
     let dataset = buildTestUpload('dataset.csv', 'text/csv', buffer);
     let appendix = buildTestUpload('appendix.pdf', 'application/pdf', buffer);

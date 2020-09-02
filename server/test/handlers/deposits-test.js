@@ -22,7 +22,7 @@ const SwordError = require('../../lib/errors').SwordError;
 const router = require('../../lib/router');
 
 function createTestDeposit() {
-  return createTestUpload('article.pdf', 'application/pdf', new Buffer('lorem ipsum'))
+  return createTestUpload('article.pdf', 'application/pdf', Buffer.from('lorem ipsum'))
     .then(function(article) {
       return {
         form: 'article',

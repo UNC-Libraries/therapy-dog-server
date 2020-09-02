@@ -19,7 +19,7 @@ const createTestUpload = require('../test-helpers').createTestUpload;
 describe('Upload', function() {
   describe('#getResourceObject()', function() {
     it('includes the correct attributes', function() {
-      return createTestUpload('article.pdf', 'application/pdf', new Buffer('lorem ipsum'))
+      return createTestUpload('article.pdf', 'application/pdf', Buffer.from('lorem ipsum'))
         .then(function(upload) {
           return upload.getResourceObject();
         })

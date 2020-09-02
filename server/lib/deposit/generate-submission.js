@@ -235,7 +235,7 @@ module.exports = function(form, bundle) {
 
       // Build the submission. The name of the METS XML will be "mets.xml", and the rest of the files will be named by their ID.
       let submission = {
-        'mets.xml': new Buffer(mets.end({ pretty: true }))
+        'mets.xml': Buffer.from(mets.end({ pretty: true }))
       };
 
       bundle.files.forEach(function(file) {

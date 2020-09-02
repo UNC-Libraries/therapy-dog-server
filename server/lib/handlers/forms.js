@@ -41,7 +41,7 @@ exports.show = function(req, res, next) {
       }
 
       res.header('Content-Type', 'application/vnd.api+json');
-      res.send(new Buffer(JSON.stringify({
+      res.send(Buffer.from(JSON.stringify({
         data: resourceObject,
         meta: meta
       })));
@@ -50,7 +50,7 @@ exports.show = function(req, res, next) {
       logging.error(err);
       res.status(404);
       res.header('Content-Type', 'application/vnd.api+json');
-      res.send(new Buffer(JSON.stringify({ errors: [ { status: '404', title: 'Not found' } ] })));
+      res.send(Buffer.from(JSON.stringify({ errors: [ { status: '404', title: 'Not found' } ] })));
     })
     .catch(function(err) {
       next(err);
