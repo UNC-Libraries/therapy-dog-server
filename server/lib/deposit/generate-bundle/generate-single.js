@@ -40,7 +40,7 @@ module.exports = function(form, values) {
     metadata = [];
   }
 
-  let item = new Item([file].concat(metadata), { type: 'File', label: upload.name });
+  let item = new Item([ file ].concat(metadata), { type: 'File', label: upload.name });
 
-  return new Bundle([item], {});
+  return new Bundle([ item ], {});
 };

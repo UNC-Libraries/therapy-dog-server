@@ -25,12 +25,12 @@ const createTestUpload = require('../test-helpers').createTestUpload;
 
 function assertFindById(id) {
   return Form.findById(id)
-  .then(function() {
-    assert(false);
-  })
-  .catch(function(error) {
-    assert.ok(error instanceof ModelNotFoundError, 'error should be an instance of ModelNotFoundError');
-  });
+    .then(function() {
+      assert(false);
+    })
+    .catch(function(error) {
+      assert.ok(error instanceof ModelNotFoundError, 'error should be an instance of ModelNotFoundError');
+    });
 }
 
 describe('Form', function() {
@@ -64,15 +64,15 @@ describe('Form', function() {
 
     it('includes a cause, id, constructor, and directory when rejecting', function() {
       return Form.findById('qwerty')
-      .then(function() {
-        assert(false);
-      })
-      .catch(function(error) {
-        assert.ok(error.extra.cause);
-        assert.equal(error.extra.id, 'qwerty');
-        assert.equal(error.extra.constructor, Form);
-        assert.equal(error.extra.directory, config.FORMS_DIRECTORY);
-      });
+        .then(function() {
+          assert(false);
+        })
+        .catch(function(error) {
+          assert.ok(error.extra.cause);
+          assert.equal(error.extra.id, 'qwerty');
+          assert.equal(error.extra.constructor, Form);
+          assert.equal(error.extra.directory, config.FORMS_DIRECTORY);
+        });
     });
   });
 
@@ -164,45 +164,45 @@ describe('Form', function() {
   describe('#getResourceObject()', function() {
     it('converts object array vocabularies to options arrays', function() {
       return Form.findById('article')
-      .then(function(form) {
-        return form.getResourceObject({ children: true });
-      })
-      .then(function(resourceObject) {
-        let language = resourceObject.attributes.children[1].children[1];
-        assert.deepEqual(language.options, [
-          { label: 'English', value: 'eng' },
-          { label: 'Spanish; Castilian', value: 'spa' }
-        ]);
-      });
+        .then(function(form) {
+          return form.getResourceObject({ children: true });
+        })
+        .then(function(resourceObject) {
+          let language = resourceObject.attributes.children[1].children[1];
+          assert.deepEqual(language.options, [
+            { label: 'English', value: 'eng' },
+            { label: 'Spanish; Castilian', value: 'spa' }
+          ]);
+        });
     });
 
     it('converts array vocabularies or literal options to options arrays', function() {
       return Form.findById('article')
-      .then(function(form) {
-        return form.getResourceObject({ children: true });
-      })
-      .then(function(resourceObject) {
-        let roles = resourceObject.attributes.children.find(c => c.key === 'roles');
-        assert.deepEqual(roles.options, [{ label: 'Student', value: 'Student' }, { label: 'Faculty', value: 'Faculty' }, { label: 'Staff', value: 'Staff' }]);
+        .then(function(form) {
+          return form.getResourceObject({ children: true });
+        })
+        .then(function(resourceObject) {
+          let roles = resourceObject.attributes.children.find(c => c.key === 'roles');
+          assert.deepEqual(roles.options, [ { label: 'Student', value: 'Student' }, { label: 'Faculty', value: 'Faculty' }, { label: 'Staff', value: 'Staff' } ]);
 
-        let review = resourceObject.attributes.children.find(c => c.key === 'review');
-        assert.deepEqual(review.options, [{ label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' }]);
+          let review = resourceObject.attributes.children.find(c => c.key === 'review');
+          assert.deepEqual(review.options, [ { label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' } ]);
 
-        let license = resourceObject.attributes.children.find(c => c.key === 'license');
-        assert.deepEqual(license.options, [{ label: 'CC-BY', value: 'CC-BY' }, { label: 'CC-BY-NC', value: 'CC-BY-NC' }]);
-      });
+          let license = resourceObject.attributes.children.find(c => c.key === 'license');
+          assert.deepEqual(license.options, [ { label: 'CC-BY', value: 'CC-BY' }, { label: 'CC-BY-NC', value: 'CC-BY-NC' } ]);
+        });
     });
 
     it('should include title, description, and contact information', function() {
       return Form.findById('article')
-      .then(function(form) {
-        return form.getResourceObject();
-      })
-      .then(function(resourceObject) {
-        assert.ok(resourceObject.attributes.title);
-        assert.ok(resourceObject.attributes.description);
-        assert.ok(resourceObject.attributes.contact);
-      });
+        .then(function(form) {
+          return form.getResourceObject();
+        })
+        .then(function(resourceObject) {
+          assert.ok(resourceObject.attributes.title);
+          assert.ok(resourceObject.attributes.description);
+          assert.ok(resourceObject.attributes.contact);
+        });
     });
   });
 
@@ -214,7 +214,7 @@ describe('Form', function() {
         supplemental: createTestUpload('data.csv', 'application/csv', new Buffer('lorem ipsum'))
       });
 
-      return Promise.all([form, uploads]).spread((form, uploads) => form.deserializeInput({
+      return Promise.all([ form, uploads ]).spread((form, uploads) => form.deserializeInput({
         authors: [
           { first: 'Some', last: 'Author' },
           { first: 'Another', last: 'Author' }
@@ -224,7 +224,7 @@ describe('Form', function() {
           language: 'eng'
         },
         embargo: 'P1Y',
-        roles: ['Staff', 'Faculty'],
+        roles: [ 'Staff', 'Faculty' ],
         review: 'no',
         article: uploads.article.id,
         supplemental: [
@@ -232,24 +232,24 @@ describe('Form', function() {
         ],
         agreement: true
       }))
-      .then(function(values) {
-        assert.deepEqual(values.authors, [
-          { first: 'Some', last: 'Author' },
-          { first: 'Another', last: 'Author' }
-        ]);
-        assert.equal(values.info.title, 'My Article');
-        assert.deepEqual(values.info.language, { code: 'eng', name: 'English' });
-        assert.equal(values.embargo, moment().add(1, 'year').format('YYYY-MM-DD'));
-        assert.deepEqual(values.roles, ['Staff', 'Faculty']);
-        assert.equal(values.review, 'no');
-        assert.equal(values.article.name, 'article.pdf');
-        assert.deepEqual(values.supplemental.map(u => u.name), ['data.csv']);
-        assert.deepEqual(values.agreement, {
-          name: 'Deposit Agreement',
-          uri: 'http://example.com/agreement',
-          prompt: 'I agree to the terms in the agreement.'
+        .then(function(values) {
+          assert.deepEqual(values.authors, [
+            { first: 'Some', last: 'Author' },
+            { first: 'Another', last: 'Author' }
+          ]);
+          assert.equal(values.info.title, 'My Article');
+          assert.deepEqual(values.info.language, { code: 'eng', name: 'English' });
+          assert.equal(values.embargo, moment().add(1, 'year').format('YYYY-MM-DD'));
+          assert.deepEqual(values.roles, [ 'Staff', 'Faculty' ]);
+          assert.equal(values.review, 'no');
+          assert.equal(values.article.name, 'article.pdf');
+          assert.deepEqual(values.supplemental.map(u => u.name), [ 'data.csv' ]);
+          assert.deepEqual(values.agreement, {
+            name: 'Deposit Agreement',
+            uri: 'http://example.com/agreement',
+            prompt: 'I agree to the terms in the agreement.'
+          });
         });
-      });
     });
   });
 
@@ -261,7 +261,7 @@ describe('Form', function() {
         supplemental: createTestUpload('data.csv', 'application/csv', new Buffer('lorem ipsum'))
       });
 
-      return Promise.all([form, uploads]).spread((form, uploads) => form.deserializeInput(form.sanitizeInput({
+      return Promise.all([ form, uploads ]).spread((form, uploads) => form.deserializeInput(form.sanitizeInput({
         authors: [
           { first: 'Some', last: 'Author' },
           { first: 't​C', last: 'Author' },
@@ -280,7 +280,7 @@ describe('Form', function() {
           language: 'eng'
         },
         embargo: 'P1Y',
-        roles: ['Staff', 'Faculty'],
+        roles: [ 'Staff', 'Faculty' ],
         review: 'no',
         article: uploads.article.id,
         supplemental: [
@@ -310,7 +310,7 @@ describe('Form', function() {
     it('should transform input to a summary usable by mailers', function() {
       let form = Form.findById('article');
       let article = createTestUpload('article.pdf', 'application/pdf', new Buffer('lorem ipsum'));
-      let summary = Promise.all([form, article]).spread((f, a) => f.summarizeInput({
+      let summary = Promise.all([ form, article ]).spread((f, a) => f.summarizeInput({
         authors: [
           { first: 'Some', last: 'Author' }
         ],
@@ -318,7 +318,7 @@ describe('Form', function() {
           title: 'My Article',
           language: 'eng'
         },
-        roles: ['Staff', 'Faculty'],
+        roles: [ 'Staff', 'Faculty' ],
         embargo: '',
         review: 'no',
         license: 'CC-BY',
@@ -364,7 +364,7 @@ describe('Form', function() {
     it('does not assign terms not found in a literal options array', function() {
       let form = Form.findById('article');
       let article = createTestUpload('article.pdf', 'application/pdf', new Buffer('lorem ipsum'));
-      let summary = Promise.all([form, article]).spread((f, a) => f.summarizeInput({
+      let summary = Promise.all([ form, article ]).spread((f, a) => f.summarizeInput({
         authors: [
           { first: 'Some', last: 'Author' }
         ],
@@ -372,7 +372,7 @@ describe('Form', function() {
           title: 'My Article',
           language: 'eng'
         },
-        roles: ['Staff', 'Faculty', 'President'],
+        roles: [ 'Staff', 'Faculty', 'President' ],
         embargo: '',
         review: 'maybe',
         license: 'CC-BY',

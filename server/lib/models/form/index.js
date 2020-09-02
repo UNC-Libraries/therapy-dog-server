@@ -231,22 +231,22 @@ class Form {
       return mapBlocks(this.children, function(block, mapChildren) {
         return blockResourceAttributes[block.type](block, mapChildren);
       })
-      .then((children) => {
-        return {
-          type: 'form',
-          id: this.id,
-          attributes: {
-            title: this.title,
-            allowDestinationOverride: this.allowDestinationOverride,
-            addAnother: this.addAnother,
-            addAnotherText: this.addAnotherText,
-            sendEmailReceipt: this.sendEmailReceipt,
-            description: this.description,
-            contact: this.contact,
-            children: children
-          }
-        };
-      });
+        .then((children) => {
+          return {
+            type: 'form',
+            id: this.id,
+            attributes: {
+              title: this.title,
+              allowDestinationOverride: this.allowDestinationOverride,
+              addAnother: this.addAnother,
+              addAnotherText: this.addAnotherText,
+              sendEmailReceipt: this.sendEmailReceipt,
+              description: this.description,
+              contact: this.contact,
+              children: children
+            }
+          };
+        });
     } else {
       return {
         type: 'form',
@@ -298,7 +298,7 @@ class Form {
    * @returns {Object}
    */
   sanitizeInput(input) {
-    let skipKeys = ['agreement', 'virtual:depositor-email'];
+    let skipKeys = [ 'agreement', 'virtual:depositor-email' ];
     let allKeys = Object.keys(input);
 
     allKeys.forEach((key) => {

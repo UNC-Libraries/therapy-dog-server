@@ -44,14 +44,14 @@ describe('Evaluate', function() {
     let expected = {
       type: 'namePart',
       properties: { type: 'given' },
-      children: ['Someone']
+      children: [ 'Someone' ]
     };
 
     deepEqual(template.evaluate(context), expected);
   });
 
   it('should evaluate a lookup expression', function() {
-    let template = new Arrow({ type: 'lookup', path: ['title'] });
+    let template = new Arrow({ type: 'lookup', path: [ 'title' ] });
 
     let context = { title: 'Lorem ipsum' };
 
@@ -59,7 +59,7 @@ describe('Evaluate', function() {
   });
 
   it('should evaluate a lookup expression with a path to an undefined value', function() {
-    let template = new Arrow({ type: 'lookup', path: ['affiliation'] });
+    let template = new Arrow({ type: 'lookup', path: [ 'affiliation' ] });
 
     let context = {};
 
@@ -69,12 +69,12 @@ describe('Evaluate', function() {
   it('should evaluate an each expression', function() {
     let template = new Arrow({
       type: 'each',
-      items: { type: 'lookup', path: ['authors'] },
+      items: { type: 'lookup', path: [ 'authors' ] },
       locals: {
         item: 'author'
       },
       body: [
-        { type: 'lookup', path: ['author', 'first'] }
+        { type: 'lookup', path: [ 'author', 'first' ] }
       ]
     });
 
@@ -85,7 +85,7 @@ describe('Evaluate', function() {
       ]
     };
 
-    let expected = ['Someone', 'Another'];
+    let expected = [ 'Someone', 'Another' ];
 
     deepEqual(template.evaluate(context), expected);
   });
@@ -93,12 +93,12 @@ describe('Evaluate', function() {
   it('should make the index available as a local in an each expression', function() {
     let template = new Arrow({
       type: 'each',
-      items: { type: 'lookup', path: ['authors'] },
+      items: { type: 'lookup', path: [ 'authors' ] },
       locals: {
         index: 'i'
       },
       body: [
-        { type: 'lookup', path: ['i'] }
+        { type: 'lookup', path: [ 'i' ] }
       ]
     });
 
@@ -109,7 +109,7 @@ describe('Evaluate', function() {
       ]
     };
 
-    let expected = [0, 1];
+    let expected = [ 0, 1 ];
 
     deepEqual(template.evaluate(context), expected);
   });
@@ -117,12 +117,12 @@ describe('Evaluate', function() {
   it('should evaluate an each expression which looks up something undefined', function() {
     let template = new Arrow({
       type: 'each',
-      items: { type: 'lookup', path: ['authors'] },
+      items: { type: 'lookup', path: [ 'authors' ] },
       locals: {
         item: 'author'
       },
       body: [
-        { type: 'lookup', path: ['author', 'first'] }
+        { type: 'lookup', path: [ 'author', 'first' ] }
       ]
     });
 
@@ -134,12 +134,12 @@ describe('Evaluate', function() {
   it('should evaluate an each expression that looks up a non-array value', function() {
     let template = new Arrow({
       type: 'each',
-      items: { type: 'lookup', path: ['author'] },
+      items: { type: 'lookup', path: [ 'author' ] },
       locals: {
         item: 'a'
       },
       body: [
-        { type: 'lookup', path: ['author'] }
+        { type: 'lookup', path: [ 'author' ] }
       ]
     });
 
@@ -147,7 +147,7 @@ describe('Evaluate', function() {
       author: 'Someone'
     };
 
-    deepEqual(template.evaluate(context), ['Someone']);
+    deepEqual(template.evaluate(context), [ 'Someone' ]);
   });
 
   it('should evaluate a choose expression', function() {
@@ -156,7 +156,7 @@ describe('Evaluate', function() {
       choices: [
         {
           predicates: [
-            { type: 'present', value: { type: 'lookup', path: ['stuff'] } }
+            { type: 'present', value: { type: 'lookup', path: [ 'stuff' ] } }
           ],
           body: [
             { type: 'string', value: 'stuff' }
@@ -164,7 +164,7 @@ describe('Evaluate', function() {
         },
         {
           predicates: [
-            { type: 'present', value: { type: 'lookup', path: ['other'] } }
+            { type: 'present', value: { type: 'lookup', path: [ 'other' ] } }
           ],
           body: [
             { type: 'string', value: 'other' }
@@ -176,9 +176,9 @@ describe('Evaluate', function() {
       ]
     });
 
-    deepEqual(template.evaluate({ stuff: '123', other: '456' }), ['stuff']);
-    deepEqual(template.evaluate({ other: '456' }), ['other']);
-    deepEqual(template.evaluate({}), ['nothing']);
+    deepEqual(template.evaluate({ stuff: '123', other: '456' }), [ 'stuff' ]);
+    deepEqual(template.evaluate({ other: '456' }), [ 'other' ]);
+    deepEqual(template.evaluate({}), [ 'nothing' ]);
   });
 
   it('should consider an empty array to be not present in a choose expression', function() {
@@ -187,7 +187,7 @@ describe('Evaluate', function() {
       choices: [
         {
           predicates: [
-            { type: 'present', value: { type: 'lookup', path: ['stuff'] } }
+            { type: 'present', value: { type: 'lookup', path: [ 'stuff' ] } }
           ],
           body: [
             { type: 'string', value: 'stuff' }
@@ -199,7 +199,7 @@ describe('Evaluate', function() {
       ]
     });
 
-    deepEqual(template.evaluate({ stuff: [] }), ['nothing']);
+    deepEqual(template.evaluate({ stuff: [] }), [ 'nothing' ]);
   });
 
   it('should produce an empty array for the otherwise branch in a choose expression if no otherwise property is specified', function() {
@@ -208,7 +208,7 @@ describe('Evaluate', function() {
       choices: [
         {
           predicates: [
-            { type: 'present', value: { type: 'lookup', path: ['stuff'] } }
+            { type: 'present', value: { type: 'lookup', path: [ 'stuff' ] } }
           ],
           body: [
             { type: 'string', value: 'stuff' }
@@ -223,14 +223,14 @@ describe('Evaluate', function() {
   it('should evaluate an arrow expression', function() {
     let template = new Arrow({
       type: 'arrow',
-      items: { type: 'lookup', path: ['roles'] },
+      items: { type: 'lookup', path: [ 'roles' ] },
       target: [
         { type: 'structure', name: 'role' },
         { type: 'structure', name: 'roleTerm' }
       ]
     });
 
-    let context = { roles: ['Author', 'Editor'] };
+    let context = { roles: [ 'Author', 'Editor' ] };
 
     let expected = [
       {
@@ -240,7 +240,7 @@ describe('Evaluate', function() {
           {
             type: 'roleTerm',
             properties: {},
-            children: ['Author']
+            children: [ 'Author' ]
           }
         ]
       },
@@ -251,7 +251,7 @@ describe('Evaluate', function() {
           {
             type: 'roleTerm',
             properties: {},
-            children: ['Editor']
+            children: [ 'Editor' ]
           }
         ]
       }
@@ -263,7 +263,7 @@ describe('Evaluate', function() {
   it('should evaluate an arrow expression which looks up a string', function() {
     let template = new Arrow({
       type: 'arrow',
-      items: { type: 'lookup', path: ['role'] },
+      items: { type: 'lookup', path: [ 'role' ] },
       target: [
         { type: 'structure', name: 'role' },
         { type: 'structure', name: 'roleTerm' }
@@ -280,7 +280,7 @@ describe('Evaluate', function() {
           {
             type: 'roleTerm',
             properties: {},
-            children: ['Author']
+            children: [ 'Author' ]
           }
         ]
       }
@@ -292,7 +292,7 @@ describe('Evaluate', function() {
   it('should evaluate an arrow expression which looks up something undefined', function() {
     let template = new Arrow({
       type: 'arrow',
-      items: { type: 'lookup', path: ['role'] },
+      items: { type: 'lookup', path: [ 'role' ] },
       target: [
         { type: 'structure', name: 'role' },
         { type: 'structure', name: 'roleTerm' }

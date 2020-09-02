@@ -29,8 +29,8 @@ function generateMetsHdr(mets) {
 
   metsHdr
     .element('agent', { ROLE: 'CREATOR', TYPE: 'OTHER' })
-      .element('name')
-        .text('CDR Forms');
+    .element('name')
+    .text('CDR Forms');
 }
 
 // dmdSec
@@ -45,7 +45,7 @@ function generateDmdSec(mets, bundle) {
       let xmlData =
       dmdSec
         .element('mdWrap', { MDTYPE: 'MODS' })
-          .element('xmlData');
+        .element('xmlData');
 
       metadata.contents.render(xmlData);
     }
@@ -72,7 +72,7 @@ function generateAmdSec(mets, bundle) {
       let xmlData =
       rights
         .element('mdWrap', { MDTYPE: 'OTHER' })
-          .element('xmlData');
+        .element('xmlData');
 
       node.contents.render(xmlData);
     });
@@ -85,12 +85,12 @@ function generateFileSec(mets, bundle, locations, checksums) {
   let fileGrp =
   mets
     .element('fileSec')
-      .element('fileGrp', { ID: 'OBJECTS' });
+    .element('fileGrp', { ID: 'OBJECTS' });
 
   bundle.files.forEach(function(file) {
     fileGrp
       .element('file', { CHECKSUM: checksums[file.id], CHECKSUMTYPE: 'MD5', ID: file.id, MIMETYPE: file.mimetype, SIZE: file.size })
-        .element('FLocat', { 'xlink:href': locations[file.id], LOCTYPE: 'OTHER', USE: 'STAGE' });
+      .element('FLocat', { 'xlink:href': locations[file.id], LOCTYPE: 'OTHER', USE: 'STAGE' });
   });
 }
 
@@ -214,38 +214,38 @@ module.exports = function(form, bundle) {
 
   // Calculate all of the checksums, and then proceed with generating METS.
   return Promise.all(checksums)
-  .then(function(checksums) {
+    .then(function(checksums) {
     // Build a hash of checksums by file id.
-    let fileChecksums = bundle.files.reduce(function(obj, file, index) {
-      obj[file.id] = checksums[index];
-      return obj;
-    }, {});
+      let fileChecksums = bundle.files.reduce(function(obj, file, index) {
+        obj[file.id] = checksums[index];
+        return obj;
+      }, {});
 
-    let mets = Xmlbuilder.create('mets', { encoding: 'utf-8' })
-      .attribute('xmlns', 'http://www.loc.gov/METS/')
-      .attribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
-      .attribute('PROFILE', 'http://cdr.unc.edu/METS/profiles/Simple');
+      let mets = Xmlbuilder.create('mets', { encoding: 'utf-8' })
+        .attribute('xmlns', 'http://www.loc.gov/METS/')
+        .attribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+        .attribute('PROFILE', 'http://cdr.unc.edu/METS/profiles/Simple');
 
-    generateMetsHdr(mets, bundle);
-    generateDmdSec(mets, bundle);
-    generateAmdSec(mets, bundle);
-    generateFileSec(mets, bundle, fileLocations, fileChecksums);
-    generateStructMap(mets, bundle);
-    generateStructLink(mets, bundle);
+      generateMetsHdr(mets, bundle);
+      generateDmdSec(mets, bundle);
+      generateAmdSec(mets, bundle);
+      generateFileSec(mets, bundle, fileLocations, fileChecksums);
+      generateStructMap(mets, bundle);
+      generateStructLink(mets, bundle);
 
-    // Build the submission. The name of the METS XML will be "mets.xml", and the rest of the files will be named by their ID.
-    let submission = {
-      'mets.xml': new Buffer(mets.end({ pretty: true }))
-    };
+      // Build the submission. The name of the METS XML will be "mets.xml", and the rest of the files will be named by their ID.
+      let submission = {
+        'mets.xml': new Buffer(mets.end({ pretty: true }))
+      };
 
-    bundle.files.forEach(function(file) {
-      if (file.isUpload) {
-        submission[file.id] = file.contents.path;
-      } else {
-        submission[file.id] = file.contents;
-      }
+      bundle.files.forEach(function(file) {
+        if (file.isUpload) {
+          submission[file.id] = file.contents.path;
+        } else {
+          submission[file.id] = file.contents;
+        }
+      });
+
+      return submission;
     });
-
-    return submission;
-  });
 };

@@ -73,7 +73,7 @@ exports.create = function(req, res, next) {
   // Collect notification recipients...
   let notificationRecipientEmails = Promise.join(form, input, collectNotificationRecipientEmails);
   let sendNotifications = [
-      Promise.join(form, inputSummary, notificationRecipientEmails, mailer.sendDepositNotification)
+    Promise.join(form, inputSummary, notificationRecipientEmails, mailer.sendDepositNotification)
   ];
 
   if (deposit.sendEmailReceipt) {
@@ -84,15 +84,15 @@ exports.create = function(req, res, next) {
 
   // Submit the deposit, send email notifications, send response.
   Promise.join(form, submission, deposit.depositorEmail, submitZip)
-  .then(() => { res.status(204).end(); })
-  .then(() => Promise.all(sendNotifications))
-  .catch(function(err) {
-    if (err instanceof SwordError) {
-      logging.error('Received error response from SWORD endpoint: %s', err.extra.body);
-    }
+    .then(() => { res.status(204).end(); })
+    .then(() => Promise.all(sendNotifications))
+    .catch(function(err) {
+      if (err instanceof SwordError) {
+        logging.error('Received error response from SWORD endpoint: %s', err.extra.body);
+      }
 
-    next(err);
-  });
+      next(err);
+    });
 };
 
 exports.debug = function(req, res, next) {
@@ -111,10 +111,10 @@ exports.debug = function(req, res, next) {
 
   // Respond with the METS.
   submission
-  .then((s) => { res.send(s['mets.xml']).end(); })
-  .catch(function(err) {
-    next(err);
-  });
+    .then((s) => { res.send(s['mets.xml']).end(); })
+    .catch(function(err) {
+      next(err);
+    });
 };
 
 /**

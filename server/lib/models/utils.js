@@ -37,14 +37,14 @@ exports.findById = function(directory, constructor, id) {
     let filename = path.join(directory, id + '.json');
 
     return fs.accessAsync(filename, fs.R_OK)
-    .then(function() {
-      return fs.readFileAsync(filename, 'utf8');
-    })
-    .then(function(data) {
-      return new constructor(id, JSON.parse(data));
-    });
+      .then(function() {
+        return fs.readFileAsync(filename, 'utf8');
+      })
+      .then(function(data) {
+        return new constructor(id, JSON.parse(data));
+      });
   })
-  .catch(function(err) {
-    throw new ModelNotFoundError(`Couldn't load "${id}": ${err.message}`, { cause: err, directory, constructor, id });
-  });
+    .catch(function(err) {
+      throw new ModelNotFoundError(`Couldn't load "${id}": ${err.message}`, { cause: err, directory, constructor, id });
+    });
 };

@@ -29,21 +29,21 @@ let getInput = Promise.all([
   getUpload,
   readFile(path.join(__dirname, '../data/input/article.json'), 'utf8').then(JSON.parse)
 ])
-.spread((upload, input) => {
-  input.article = upload.id;
-  return input;
-});
+  .spread((upload, input) => {
+    input.article = upload.id;
+    return input;
+  });
 
-let getSummary = Promise.all([getForm, getInput]).spread((form, input) => form.summarizeInput(input));
+let getSummary = Promise.all([ getForm, getInput ]).spread((form, input) => form.summarizeInput(input));
 
 Promise.all([
   Promise.join(getForm, getSummary, Promise.resolve('depositor@example.com'), mailer.sendDepositReceipt),
   Promise.join(getForm, getSummary, Promise.resolve('someone@example.com'), mailer.sendDepositNotification)
 ])
-.then(function(result) {
-  console.log(result);
-})
-.catch(function(err) {
-  console.error(err);
-  console.error(err.stack);
-});
+  .then(function(result) {
+    console.log(result);
+  })
+  .catch(function(err) {
+    console.error(err);
+    console.error(err.stack);
+  });

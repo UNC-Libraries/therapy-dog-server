@@ -43,7 +43,7 @@ describe('Submission generation', function() {
         type: 'single',
         file: {
           upload: 'thesis',
-          metadata: ['description', 'unpublished']
+          metadata: [ 'description', 'unpublished' ]
         }
       },
       metadata: [
@@ -60,7 +60,7 @@ describe('Submission generation', function() {
             children: [
               {
                 type: 'arrow',
-                items: { type: 'lookup', path: ['title'] },
+                items: { type: 'lookup', path: [ 'title' ] },
                 target: [
                   { type: 'structure', name: 'titleInfo' },
                   { type: 'structure', name: 'title' }
@@ -233,7 +233,7 @@ describe('Submission generation', function() {
         let sections = select('/mets:mets/*', doc);
         let names = sections.map(function(s) { return s.tagName; });
 
-        assert.deepEqual(['metsHdr', 'dmdSec', 'amdSec', 'fileSec', 'structMap'], names);
+        assert.deepEqual([ 'metsHdr', 'dmdSec', 'amdSec', 'fileSec', 'structMap' ], names);
       });
     });
   });
@@ -272,7 +272,7 @@ describe('Submission generation', function() {
 
     let values = {
       thesis: thesis,
-      supplemental: [dataset, appendix],
+      supplemental: [ dataset, appendix ],
       agreement: true
     };
 

@@ -45,13 +45,13 @@ exports.date = function(block, value) {
 
 exports.select = function(block, value) {
   return getOptionLabel(block.options, value)
-  .then(function(label) {
-    if (label !== undefined) {
-      return { label: block.label, value: label };
-    } else {
-      return { label: block.label, value: '(none)' };
-    }
-  });
+    .then(function(label) {
+      if (label !== undefined) {
+        return { label: block.label, value: label };
+      } else {
+        return { label: block.label, value: '(none)' };
+      }
+    });
 };
 
 exports.checkboxes = function(block, value) {
@@ -86,9 +86,9 @@ exports.tokens = function(block, value) {
 
 exports.radio = function(block, value) {
   return getOptionLabel(block.options, value)
-  .then(function(summary) {
-    return { label: block.label, value: summary };
-  });
+    .then(function(summary) {
+      return { label: block.label, value: summary };
+    });
 };
 
 exports.file = function(block, value) {

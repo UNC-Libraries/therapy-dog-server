@@ -36,7 +36,7 @@ describe('Vocabulary', function() {
     it('throws a CheckerError when passed invalid attributes', function() {
       // Missing the labelKey and valueKey properties.
       let invalid = {
-        terms: [{ code: 'eng', name: 'English' }]
+        terms: [ { code: 'eng', name: 'English' } ]
       };
 
       assert.throws(function() {

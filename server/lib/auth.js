@@ -30,7 +30,7 @@ exports.requireRemoteUser = function(req, res, next) {
     next();
   } else {
     res.status(401);
-    res.send({ errors: [{ status: '401', title: 'Unauthorized' }] });
+    res.send({ errors: [ { status: '401', title: 'Unauthorized' } ] });
   }
 };
 
@@ -40,6 +40,6 @@ exports.requireDebug = function(req, res, next) {
   } else {
     res.status(401);
     res.header('Cache-Control', 'max-age=0');
-    res.send({ errors: [{ status: '401', title: 'Unauthorized' }] });
+    res.send({ errors: [ { status: '401', title: 'Unauthorized' } ] });
   }
 };

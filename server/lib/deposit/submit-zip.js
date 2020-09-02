@@ -133,9 +133,9 @@ function postZip(form, zipFile, depositorEmail) {
  */
 function submitZip(form, submission, depositorEmail) {
   return makeZip(submission)
-  .then(function(zipFile) {
-    return postZip(form, zipFile, depositorEmail);
-  });
+    .then(function(zipFile) {
+      return postZip(form, zipFile, depositorEmail);
+    });
 }
 
 module.exports = submitZip;

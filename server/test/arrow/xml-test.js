@@ -34,7 +34,7 @@ describe('XML', function() {
                 {
                   type: '@type',
                   properties: {},
-                  children: ['given']
+                  children: [ 'given' ]
                 },
                 'Someone',
                 ' ',
@@ -59,7 +59,7 @@ describe('XML', function() {
         {
           type: 'note',
           properties: {},
-          children: ['This is a thing']
+          children: [ 'This is a thing' ]
         }
       ]
     };
@@ -83,7 +83,7 @@ describe('XML', function() {
         {
           type: '@childAttrWithChildren',
           properties: {},
-          children: [123]
+          children: [ 123 ]
         },
         {
           type: '@childAttrWithValueProperty',
@@ -111,7 +111,7 @@ describe('XML', function() {
         {
           type: '@childAttrWithChildren',
           properties: {},
-          children: [{ a: 1 }]
+          children: [ { a: 1 } ]
         },
         {
           type: '@childAttrWithValueProperty',
