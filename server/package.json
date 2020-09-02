@@ -3,7 +3,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "lint": "jshint --exclude ./node_modules,lib/arrow/parser.js,coverage,docs",
-    "style": "jscs .",
+    "style": "eslint .",
     "test": "NODE_ENV=test mocha \"test/**/*-test.js\"",
     "cover": "NODE_ENV=test istanbul cover _mocha \"test/**/*-test.js\"",
     "docs": "jsdoc --configure jsdoc.json --destination ./docs/ --recurse lib",
@@ -31,8 +31,8 @@
     "xss-filters": "^1.2.7"
   },
   "devDependencies": {
+    "eslint": "^7.8.1",
     "istanbul": "^0.4.5",
-    "jscs": "^3.0.7",
     "jsdoc": "^3.6.5",
     "jshint": "^2.12.0",
     "marked": "^1.1.1",

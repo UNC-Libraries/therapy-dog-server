@@ -1,0 +1,72 @@
+{
+  "ignorePatterns": ["lib/arrow/parser.js", "node_modules/**", "coverage/**", "docs/**"],
+
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+
+  "rules": {
+    "array-bracket-spacing": [
+      2,
+      "always"
+    ],
+    "padded-blocks": [
+      2,
+      "never"
+    ],
+    "key-spacing": [
+      2,
+      {
+        "afterColon": true
+      }
+    ],
+    "comma-style": [
+      2,
+      "last"
+    ],
+    "brace-style": [
+      2,
+      "1tbs",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "no-spaced-func": 2,
+    "no-empty": [
+      2,
+      {
+        "allowEmptyCatch": true
+      }
+    ],
+    "curly": [
+      2,
+      "all"
+    ],
+    "eol-last": 2,
+    "no-trailing-spaces": 2,
+    "comma-dangle": [
+      2,
+      "never"
+    ],
+    "space-before-blocks": [
+      2,
+      "always"
+    ],
+    "indent": [
+      2,
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "quotes": [
+      2,
+      "single"
+    ],
+    "keyword-spacing": [
+      2,
+      {}
+    ],
+    "space-infix-ops": 2
+  }
+}
