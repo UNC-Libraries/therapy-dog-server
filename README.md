@@ -98,10 +98,6 @@ In a separate terminal, clone that app and follow its readme to install it. Then
 
     cd client && npm start
 
-## Check before you commit
-
-We don't have CI set up yet, so always run `make check` before committing.
-
 ## How to add dependencies to server
 
 The source code for some dependencies is added to the repository:
