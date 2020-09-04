@@ -4,8 +4,7 @@
   "scripts": {
     "lint": "jshint --exclude ./node_modules,lib/arrow/parser.js,coverage,docs",
     "style": "eslint .",
-    "test": "NODE_ENV=test mocha \"test/**/*-test.js\"",
-    "cover": "NODE_ENV=test istanbul cover _mocha \"test/**/*-test.js\"",
+    "test": "NODE_ENV=test nyc mocha \"test/**/*-test.js\"",
     "docs": "jsdoc --configure jsdoc.json --destination ./docs/ --recurse lib",
     "start": "node server.js"
   },
@@ -33,7 +32,6 @@
   },
   "devDependencies": {
     "eslint": "^7.8.1",
-    "istanbul": "^0.4.5",
     "jsdoc": "^3.6.5",
     "jshint": "^2.12.0",
     "marked": "^1.1.1",
@@ -41,6 +39,7 @@
     "nock": "^13.0.4",
     "node-mocks-http": "^1.9.0",
     "nodemon": "^2.0.4",
+    "nyc": "^15.1.0",
     "smtp-server": "^3.7.0",
     "xmldom": "^0.3.0",
     "xpath": "0.0.29"

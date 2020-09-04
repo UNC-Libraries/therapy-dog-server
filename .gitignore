@@ -15,9 +15,11 @@ server/docs
 # npm binaries
 server/node_modules/.bin
 
+server/.nyc_output
+
 # npm devDependencies
-server/node_modules/istanbul
-server/node_modules/jscs
+server/node_modules/nyc
+server/node_modules/eslint
 server/node_modules/jsdoc
 server/node_modules/jshint
 server/node_modules/mocha
