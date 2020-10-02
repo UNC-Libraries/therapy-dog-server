@@ -14,7 +14,7 @@ function toArray(array) {
   } else if (array === undefined) {
     return [];
   } else {
-    return [array];
+    return [ array ];
   }
 }
 
@@ -45,7 +45,7 @@ function generateFileItems(itemSpec, metadataSpecs, values) {
         metadata = [];
       }
 
-      return new Item([file].concat(metadata), { type: 'File', label: upload.name });
+      return new Item([ file ].concat(metadata), { type: 'File', label: upload.name });
     });
 
     return result.concat(items);
@@ -68,7 +68,7 @@ function generateAgreementFileItem(agreements, values, depositorSignature) {
   let currentDay = currentDate.getUTCDate();
   let currentYear = currentDate.getUTCFullYear();
 
-  let contents = new Buffer(agreements.map(function(key) {
+  let contents = Buffer.from(agreements.map(function(key) {
     let agreement = values[key];
     return `${agreement.name}\n${agreement.uri}\n${agreement.prompt}\n${currentMonth}/${currentDay}/${currentYear}\n${depositorSignature}\n`;
   }).join('\n'));
@@ -86,7 +86,7 @@ function generateAgreementFileItem(agreements, values, depositorSignature) {
   });
   let metadata = new Metadata(xml, { type: 'access-control' });
 
-  return new Item([file, metadata], { type: 'File', label: 'agreements.txt' });
+  return new Item([ file, metadata ], { type: 'File', label: 'agreements.txt' });
 }
 
 /**
@@ -140,5 +140,5 @@ module.exports = function(form, values, depositorSignature) {
 
   let aggregate = new Item([].concat(main).concat(children).concat(link).concat(agreement).concat(metadata), { type: 'Aggregate Work', label: 'Aggregate Work' });
 
-  return new Bundle([aggregate], {});
+  return new Bundle([ aggregate ], {});
 };

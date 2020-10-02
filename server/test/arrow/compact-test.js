@@ -30,14 +30,14 @@ describe('Compact', function() {
               type: 'structure',
               name: 'dateIssued',
               children: [
-                { type: 'lookup', path: ['pubdate'] }
+                { type: 'lookup', path: [ 'pubdate' ] }
               ]
             },
             {
               type: 'structure',
               name: 'edition',
               children: [
-                { type: 'lookup', path: ['version'] }
+                { type: 'lookup', path: [ 'version' ] }
               ]
             }
           ]
@@ -83,7 +83,7 @@ describe('Compact', function() {
               {
                 type: 'dateIssued',
                 properties: {},
-                children: ['2016']
+                children: [ '2016' ]
               }
             ]
           }
@@ -105,11 +105,11 @@ describe('Compact', function() {
         },
         published: {
           type: 'lookup',
-          path: ['published']
+          path: [ 'published' ]
         },
         'embargo-until': {
           type: 'lookup',
-          path: ['embargo-until']
+          path: [ 'embargo-until' ]
         }
       }
     });
@@ -142,14 +142,14 @@ describe('Compact', function() {
               type: 'structure',
               name: 'dateIssued',
               children: [
-                { type: 'lookup', path: ['pubdate'] }
+                { type: 'lookup', path: [ 'pubdate' ] }
               ]
             },
             {
               type: 'structure',
               name: 'edition',
               children: [
-                { type: 'lookup', path: ['version'] }
+                { type: 'lookup', path: [ 'version' ] }
               ]
             },
             {
@@ -178,12 +178,12 @@ describe('Compact', function() {
               {
                 type: 'dateIssued',
                 properties: {},
-                children: ['2016']
+                children: [ '2016' ]
               },
               {
                 type: 'publisher',
                 properties: {},
-                children: ['Someone']
+                children: [ 'Someone' ]
               }
             ]
           }
@@ -222,7 +222,7 @@ describe('Compact', function() {
                 type: { type: 'string', value: 'given' }
               },
               children: [
-                { type: 'lookup', path: ['first'] }
+                { type: 'lookup', path: [ 'first' ] }
               ]
             },
             {
@@ -278,7 +278,7 @@ describe('Compact', function() {
         {
           type: 'accessCondition',
           properties: {},
-          children: ['Some license...']
+          children: [ 'Some license...' ]
         }
       ]
     };
@@ -300,7 +300,7 @@ describe('Compact', function() {
               name: 'dateIssued',
               keep: true,
               children: [
-                { type: 'lookup', path: ['pubdate'] }
+                { type: 'lookup', path: [ 'pubdate' ] }
               ]
             }
           ]

@@ -212,7 +212,7 @@ exports.shape = function(spec) {
 
   let checker = function(value) {
     if (typeof value !== 'object' || Array.isArray(value)) {
-      throw new CheckerError(`Expected object`);
+      throw new CheckerError('Expected object');
     }
 
     let result = {};
@@ -227,7 +227,7 @@ exports.shape = function(spec) {
         }
       } catch (err) {
         if (err instanceof CheckerError) {
-          throw new CheckerError(err.originalMessage, [key].concat(err.path));
+          throw new CheckerError(err.originalMessage, [ key ].concat(err.path));
         } else {
           throw err;
         }
@@ -262,7 +262,7 @@ exports.shape = function(spec) {
 exports.arrayOf = function(type) {
   let checker = function(value) {
     if (!Array.isArray(value)) {
-      throw new CheckerError(`Expected array`);
+      throw new CheckerError('Expected array');
     }
 
     let result = [];
@@ -271,7 +271,7 @@ exports.arrayOf = function(type) {
         result[i] = type(value[i]);
       } catch (err) {
         if (err instanceof CheckerError) {
-          throw new CheckerError(err.originalMessage, [i].concat(err.path));
+          throw new CheckerError(err.originalMessage, [ i ].concat(err.path));
         } else {
           throw err;
         }
@@ -305,7 +305,7 @@ exports.arrayOf = function(type) {
 exports.mapOf = function(type) {
   let checker = function(value) {
     if (typeof value !== 'object') {
-      throw new CheckerError(`Expected object`);
+      throw new CheckerError('Expected object');
     }
 
     let keys = Object.keys(value);
@@ -316,7 +316,7 @@ exports.mapOf = function(type) {
         result[key] = type(value[key]);
       } catch (err) {
         if (err instanceof CheckerError) {
-          throw new CheckerError(err.originalMessage, [key].concat(err.path));
+          throw new CheckerError(err.originalMessage, [ key ].concat(err.path));
         } else {
           throw err;
         }
@@ -401,7 +401,7 @@ exports.recordTypes = function(types) {
 
   let checker = function(value) {
     if (typeof value !== 'object') {
-      throw new CheckerError(`Expected object`);
+      throw new CheckerError('Expected object');
     }
 
     for (let i = 0; i < keys.length; i++) {

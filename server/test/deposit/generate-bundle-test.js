@@ -34,7 +34,7 @@ describe('Bundle generation', function() {
         type: 'single',
         file: {
           upload: 'thesis',
-          metadata: ['description']
+          metadata: [ 'description' ]
         }
       },
       metadata: [
@@ -48,7 +48,7 @@ describe('Bundle generation', function() {
             children: [
               {
                 type: 'arrow',
-                items: { type: 'lookup', path: ['title'] },
+                items: { type: 'lookup', path: [ 'title' ] },
                 target: [
                   { type: 'structure', name: 'titleInfo' },
                   { type: 'structure', name: 'title' }
@@ -60,7 +60,7 @@ describe('Bundle generation', function() {
       ]
     });
 
-    let buffer = new Buffer('lorem ipsum');
+    let buffer = Buffer.from('lorem ipsum');
     let thesis = buildTestUpload('thesis.pdf', 'application/pdf', buffer);
 
     let values = {
@@ -117,7 +117,7 @@ describe('Bundle generation', function() {
         file: {
           context: 'stuff',
           upload: 'thesis',
-          metadata: ['description']
+          metadata: [ 'description' ]
         }
       },
       metadata: [
@@ -131,7 +131,7 @@ describe('Bundle generation', function() {
             children: [
               {
                 type: 'arrow',
-                items: { type: 'lookup', path: ['title'] },
+                items: { type: 'lookup', path: [ 'title' ] },
                 target: [
                   { type: 'structure', name: 'titleInfo' },
                   { type: 'structure', name: 'title' }
@@ -143,7 +143,7 @@ describe('Bundle generation', function() {
       ]
     });
 
-    let buffer = new Buffer('lorem ipsum');
+    let buffer = Buffer.from('lorem ipsum');
     let thesis = buildTestUpload('thesis.pdf', 'application/pdf', buffer);
 
     let values = {
@@ -202,7 +202,7 @@ describe('Bundle generation', function() {
         type: 'aggregate',
         aggregate: {
           context: 'info',
-          metadata: ['description']
+          metadata: [ 'description' ]
         },
         main: {
           upload: 'thesis'
@@ -224,7 +224,7 @@ describe('Bundle generation', function() {
             children: [
               {
                 type: 'arrow',
-                items: { type: 'lookup', path: ['title'] },
+                items: { type: 'lookup', path: [ 'title' ] },
                 target: [
                   { type: 'structure', name: 'titleInfo' },
                   { type: 'structure', name: 'title' }
@@ -236,7 +236,7 @@ describe('Bundle generation', function() {
       ]
     });
 
-    let buffer = new Buffer('lorem ipsum');
+    let buffer = Buffer.from('lorem ipsum');
     let thesis = buildTestUpload('thesis.pdf', 'application/pdf', buffer);
     let dataset = buildTestUpload('dataset.csv', 'text/csv', buffer);
     let appendix = buildTestUpload('appendix.pdf', 'application/pdf', buffer);
@@ -246,7 +246,7 @@ describe('Bundle generation', function() {
         title: 'My Thesis'
       },
       thesis: thesis,
-      supplemental: [dataset, appendix]
+      supplemental: [ dataset, appendix ]
     };
 
     let bundle = generateBundle(form, values);
@@ -305,7 +305,7 @@ describe('Bundle generation', function() {
       bundle: {
         type: 'aggregate',
         aggregate: {
-          metadata: ['aggregate']
+          metadata: [ 'aggregate' ]
         },
         main: {
           upload: 'thesis'
@@ -314,7 +314,7 @@ describe('Bundle generation', function() {
           {
             context: 'supplemental',
             upload: 'file',
-            metadata: ['supplemental']
+            metadata: [ 'supplemental' ]
           }
         ]
       },
@@ -329,7 +329,7 @@ describe('Bundle generation', function() {
             children: [
               {
                 type: 'arrow',
-                items: { type: 'lookup', path: ['title'] },
+                items: { type: 'lookup', path: [ 'title' ] },
                 target: [
                   { type: 'structure', name: 'titleInfo' },
                   { type: 'structure', name: 'title' }
@@ -348,7 +348,7 @@ describe('Bundle generation', function() {
             children: [
               {
                 type: 'arrow',
-                items: { type: 'lookup', path: ['abstract'] },
+                items: { type: 'lookup', path: [ 'abstract' ] },
                 target: [
                   { type: 'structure', name: 'abstract' }
                 ]
@@ -359,7 +359,7 @@ describe('Bundle generation', function() {
       ]
     });
 
-    let buffer = new Buffer('lorem ipsum');
+    let buffer = Buffer.from('lorem ipsum');
     let thesis = buildTestUpload('thesis.pdf', 'application/pdf', buffer);
     let dataset = buildTestUpload('dataset.csv', 'text/csv', buffer);
     let appendix = buildTestUpload('appendix.pdf', 'application/pdf', buffer);
@@ -417,12 +417,12 @@ describe('Bundle generation', function() {
         main: {
           upload: 'thesis'
         },
-        agreements: ['agreement']
+        agreements: [ 'agreement' ]
       },
       metadata: []
     });
 
-    let buffer = new Buffer('lorem ipsum');
+    let buffer = Buffer.from('lorem ipsum');
     let thesis = buildTestUpload('thesis.pdf', 'application/pdf', buffer);
 
     let values = {

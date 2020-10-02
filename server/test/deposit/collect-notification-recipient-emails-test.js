@@ -25,7 +25,7 @@ describe('collectNotificationRecipientEmails', function() {
       notificationRecipientEmails: [
         { type: 'string', value: 'test@example.com' },
         { type: 'string', value: 'another@example.org' },
-        { type: 'lookup', path: ['email'] }
+        { type: 'lookup', path: [ 'email' ] }
       ],
       children: [
         { type: 'email', key: 'email' },
@@ -44,7 +44,7 @@ describe('collectNotificationRecipientEmails', function() {
       email: 'blah@example.net'
     };
 
-    assert.deepEqual(collectNotificationRecipientEmails(form, values), ['test@example.com', 'another@example.org', 'blah@example.net']);
+    assert.deepEqual(collectNotificationRecipientEmails(form, values), [ 'test@example.com', 'another@example.org', 'blah@example.net' ]);
   });
 
   it('should collect using an array in a vocabulary term', function() {
@@ -52,7 +52,7 @@ describe('collectNotificationRecipientEmails', function() {
       destination: 'uuid:1234',
       title: 'Test',
       notificationRecipientEmails: [
-        { type: 'lookup', path: ['major', 'emails'] }
+        { type: 'lookup', path: [ 'major', 'emails' ] }
       ],
       children: [
         { type: 'select', key: 'major', options: 'majors' },
@@ -69,10 +69,10 @@ describe('collectNotificationRecipientEmails', function() {
 
     // These are transformed values -- there is no 'majors' vocabulary fixture.
     let values = {
-      major: { name: 'Basket Weaving', emails: ['b@example.com', 'c@example.com'] }
+      major: { name: 'Basket Weaving', emails: [ 'b@example.com', 'c@example.com' ] }
     };
 
-    assert.deepEqual(collectNotificationRecipientEmails(form, values), ['b@example.com', 'c@example.com']);
+    assert.deepEqual(collectNotificationRecipientEmails(form, values), [ 'b@example.com', 'c@example.com' ]);
   });
 
   it('should return an empty array if the property is absent', function() {

@@ -13,8 +13,8 @@
 // limitations under the License.
 'use strict';
 
-let required = ['HOST', 'PORT', 'SWORD_BASE_URL', 'SWORD_USERNAME', 'SWORD_PASSWORD', 'SITE_URL', 'GROUPS_BASE', 'FORMS_DIRECTORY', 'VOCABULARIES_DIRECTORY', 'UPLOADS_DIRECTORY', 'FROM_EMAIL', 'MAILER_CONNECTION_URL'];
-let optional = ['DEBUG'];
+let required = [ 'HOST', 'PORT', 'SWORD_BASE_URL', 'SWORD_USERNAME', 'SWORD_PASSWORD', 'SITE_URL', 'GROUPS_BASE', 'FORMS_DIRECTORY', 'VOCABULARIES_DIRECTORY', 'UPLOADS_DIRECTORY', 'FROM_EMAIL', 'MAILER_CONNECTION_URL' ];
+let optional = [ 'DEBUG' ];
 
 if (process.env.NODE_ENV === 'production') {
   required.push('LOG_FILENAME');

@@ -33,9 +33,9 @@ describe('Block deserializer', function() {
       };
 
       return deserializeInput(block, 'other')
-      .then(function(result) {
-        assert.deepEqual(result, undefined);
-      });
+        .then(function(result) {
+          assert.deepEqual(result, undefined);
+        });
     });
 
     it('outputs undefined for terms not found in a string array vocabulary', function() {
@@ -50,9 +50,9 @@ describe('Block deserializer', function() {
       };
 
       return deserializeInput(block, 'maybe')
-      .then(function(result) {
-        assert.deepEqual(result, undefined);
-      });
+        .then(function(result) {
+          assert.deepEqual(result, undefined);
+        });
     });
   });
 
@@ -65,10 +65,10 @@ describe('Block deserializer', function() {
         options: 'role'
       };
 
-      return deserializeInput(block, ['Student', 'President'])
-      .then(function(result) {
-        assert.deepEqual(result, ['Student']);
-      });
+      return deserializeInput(block, [ 'Student', 'President' ])
+        .then(function(result) {
+          assert.deepEqual(result, [ 'Student' ]);
+        });
     });
   });
 
@@ -81,12 +81,12 @@ describe('Block deserializer', function() {
       };
 
       return deserializeInput(block, '71c5a4d1-eb04-4a25-9786-331c27c959d7')
-      .then(function() {
-        assert(false, 'should reject');
-      })
-      .catch(function(error) {
-        assert.ok(error instanceof UploadNotFoundError, 'should reject with UploadNotFoundError');
-      });
+        .then(function() {
+          assert(false, 'should reject');
+        })
+        .catch(function(error) {
+          assert.ok(error instanceof UploadNotFoundError, 'should reject with UploadNotFoundError');
+        });
     });
 
     it('does not reject for an absent optional file', function() {
@@ -97,9 +97,9 @@ describe('Block deserializer', function() {
       };
 
       return deserializeInput(block, undefined)
-      .then(function(result) {
-        assert.equal(result, undefined);
-      });
+        .then(function(result) {
+          assert.equal(result, undefined);
+        });
     });
   });
 });

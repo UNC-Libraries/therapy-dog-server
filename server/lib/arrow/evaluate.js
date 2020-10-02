@@ -75,7 +75,7 @@ function evaluateEach(expression, context) {
   }
 
   if (!Array.isArray(items)) {
-    items = [items];
+    items = [ items ];
   }
 
   // items remain unwrapped when passing as a context, since lookups will wrap them.
@@ -137,7 +137,7 @@ function evaluateArrow(expression, context) {
   }
 
   if (!Array.isArray(items)) {
-    items = [items];
+    items = [ items ];
   }
 
   // wrap each item -- they are always data since they come from a lookup expression.
@@ -149,7 +149,7 @@ function evaluateArrow(expression, context) {
     let result = item;
     for (let i = expression.target.length - 1; i >= 0; i--) {
       let structure = evaluateStructure(expression.target[i], item);
-      structure.children = [result];
+      structure.children = [ result ];
 
       result = structure;
     }

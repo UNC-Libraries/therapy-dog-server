@@ -43,7 +43,7 @@ describe('Submission generation', function() {
         type: 'single',
         file: {
           upload: 'thesis',
-          metadata: ['description', 'unpublished']
+          metadata: [ 'description', 'unpublished' ]
         }
       },
       metadata: [
@@ -60,7 +60,7 @@ describe('Submission generation', function() {
             children: [
               {
                 type: 'arrow',
-                items: { type: 'lookup', path: ['title'] },
+                items: { type: 'lookup', path: [ 'title' ] },
                 target: [
                   { type: 'structure', name: 'titleInfo' },
                   { type: 'structure', name: 'title' }
@@ -85,7 +85,7 @@ describe('Submission generation', function() {
       ]
     });
 
-    let buffer = new Buffer('lorem ipsum');
+    let buffer = Buffer.from('lorem ipsum');
     let thesis = buildTestUpload('thesis.pdf', 'application/pdf', buffer);
 
     let values = {
@@ -233,7 +233,7 @@ describe('Submission generation', function() {
         let sections = select('/mets:mets/*', doc);
         let names = sections.map(function(s) { return s.tagName; });
 
-        assert.deepEqual(['metsHdr', 'dmdSec', 'amdSec', 'fileSec', 'structMap'], names);
+        assert.deepEqual([ 'metsHdr', 'dmdSec', 'amdSec', 'fileSec', 'structMap' ], names);
       });
     });
   });
@@ -265,14 +265,14 @@ describe('Submission generation', function() {
       metadata: []
     });
 
-    let buffer = new Buffer('lorem ipsum');
+    let buffer = Buffer.from('lorem ipsum');
     let thesis = buildTestUpload('thesis.pdf', 'application/pdf', buffer);
     let dataset = buildTestUpload('dataset.csv', 'text/csv', buffer);
     let appendix = buildTestUpload('appendix.pdf', 'application/pdf', buffer);
 
     let values = {
       thesis: thesis,
-      supplemental: [dataset, appendix],
+      supplemental: [ dataset, appendix ],
       agreement: true
     };
 

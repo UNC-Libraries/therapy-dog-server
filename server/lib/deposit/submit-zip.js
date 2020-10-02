@@ -21,7 +21,7 @@ const tmp = require('tmp');
 const config = require('../../config');
 const SwordError = require('../errors').SwordError;
 
-var options = { dir: config.UPLOADS_DIRECTORY }
+var options = { tmpdir: config.UPLOADS_DIRECTORY }
 tmp.setGracefulCleanup();
 
 function makeZip(submission) {
@@ -133,9 +133,9 @@ function postZip(form, zipFile, depositorEmail) {
  */
 function submitZip(form, submission, depositorEmail) {
   return makeZip(submission)
-  .then(function(zipFile) {
-    return postZip(form, zipFile, depositorEmail);
-  });
+    .then(function(zipFile) {
+      return postZip(form, zipFile, depositorEmail);
+    });
 }
 
 module.exports = submitZip;

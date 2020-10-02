@@ -20,43 +20,39 @@ const ModelNotFoundError = require('../errors').ModelNotFoundError;
 
 exports.show = function(req, res, next) {
   Form.findById(req.params.id)
-  .then(function(form) {
-    if (req.remoteUser || (config.DEBUG && /AUTHENTICATION_SPOOFING/.test(req.headers.cookie))) {
-      return form.getResourceObject({ children: true });
-    } else {
-      return form.getResourceObject();
-    }
-  })
-  .then(function(resourceObject) {
-    let meta = {};
+    .then(function(form) {
+      if (req.remoteUser || (config.DEBUG && /AUTHENTICATION_SPOOFING/.test(req.headers.cookie))) {
+        return form.getResourceObject({ children: true });
+      } else {
+        return form.getResourceObject();
+      }
+    })
+    .then(function(resourceObject) {
+      let meta = {};
 
-    if (config.DEBUG) {
-      meta.debug = true;
-    }
+      if (config.DEBUG) {
+        meta.debug = true;
+      }
 
-    if (req.remoteUser || (meta.debug && /AUTHENTICATION_SPOOFING/.test(req.headers.cookie))) {
-      meta.authorized = true;
-    } else {
-      meta.authorized = false;
-    }
+      meta.authorized = req.remoteUser || (meta.debug && /AUTHENTICATION_SPOOFING/.test(req.headers.cookie));
 
-    if (req.headers['mail']) {
-      meta.mail = req.headers['mail'];
-    }
+      if (req.headers['mail']) {
+        meta.mail = req.headers['mail'];
+      }
 
-    res.header('Content-Type', 'application/vnd.api+json');
-    res.send(new Buffer(JSON.stringify({
-      data: resourceObject,
-      meta: meta
-    })));
-  })
-  .catch(ModelNotFoundError, function(err) {
-    logging.error(err);
-    res.status(404);
-    res.header('Content-Type', 'application/vnd.api+json');
-    res.send(new Buffer(JSON.stringify({ errors: [{ status: '404', title: 'Not found' }] })));
-  })
-  .catch(function(err) {
-    next(err);
-  });
+      res.header('Content-Type', 'application/vnd.api+json');
+      res.send(Buffer.from(JSON.stringify({
+        data: resourceObject,
+        meta: meta
+      })));
+    })
+    .catch(ModelNotFoundError, function(err) {
+      logging.error(err);
+      res.status(404);
+      res.header('Content-Type', 'application/vnd.api+json');
+      res.send(Buffer.from(JSON.stringify({ errors: [ { status: '404', title: 'Not found' } ] })));
+    })
+    .catch(function(err) {
+      next(err);
+    });
 };

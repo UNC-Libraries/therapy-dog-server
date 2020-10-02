@@ -14,7 +14,7 @@ Install Node.js.
 
 If you are using Homebrew on macOS:
 
-    brew install node4-lts
+    brew install node12-lts
 
 If you are using Git for Windows, install Node.js using the v4.x.x LTS package available at <https://nodejs.org/en/>.
 
@@ -97,10 +97,6 @@ Start the API server:
 In a separate terminal, clone that app and follow its readme to install it. Then start the client:
 
     cd client && npm start
-
-## Check before you commit
-
-We don't have CI set up yet, so always run `make check` before committing.
 
 ## How to add dependencies to server
 
