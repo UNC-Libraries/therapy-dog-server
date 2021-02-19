@@ -1,5 +1,7 @@
 # Therapy Dog - Server (Deposit Forms)
 
+![Build](https://github.com/UNC-Libraries/therapy-dog-server/workflows/Build/badge.svg)
+
 This is a Node.js and Ember application that provides:
 
   - flexible forms for collecting files and metadata,
@@ -44,7 +46,7 @@ Install Node.js as above.
 
 Rather than installing dependencies using `make deps` as above:
 
-    cd server && npm install
+    cd server && npm ci
 
 Copy the example forms and vocabularies:
 
