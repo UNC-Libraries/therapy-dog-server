@@ -26,7 +26,7 @@ function evaluateLookup(expression, context) {
     if (value !== undefined && value !== null && expression.path[i] in value) {
       value = value[expression.path[i]];
     } else {
-      logging.debug("Unable to find value for " + expression.path[i] + " in context " + context);
+      logging.debug('Unable to find value for ' + expression.path[i] + ' in context ' + context);
       value = undefined;
       break;
     }
