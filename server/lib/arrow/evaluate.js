@@ -14,6 +14,7 @@
 'use strict';
 
 const isEmpty = require('./utils').isEmpty;
+const logging = require('../../lib/logging');
 
 function evaluateString(expression) {
   return { type: 'string', value: expression.value };
@@ -22,9 +23,10 @@ function evaluateString(expression) {
 function evaluateLookup(expression, context) {
   let value = context;
   for (let i = 0; i < expression.path.length; i++) {
-    if (expression.path[i] in value) {
+    if (value !== undefined && value !== null && expression.path[i] in value) {
       value = value[expression.path[i]];
     } else {
+      logging.debug('Unable to find value for ' + expression.path[i] + ' in context ' + context);
       value = undefined;
       break;
     }
