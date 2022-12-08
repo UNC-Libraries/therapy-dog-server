@@ -3,17 +3,17 @@ GEM
   specs:
     docopt (0.5.0)
     mini_portile2 (2.8.0)
-    nokogiri (1.13.9)
+    nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    racc (1.6.0)
+    racc (1.6.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   docopt
-  nokogiri (~> 1.13.9)
+  nokogiri (~> 1.13.10)
 
 BUNDLED WITH
    1.16.1
