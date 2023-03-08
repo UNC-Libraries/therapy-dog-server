@@ -14,7 +14,7 @@
 'use strict';
 
 const express = require('express');
-import multer from 'multer';
+const multer = require('multer');
 const config = require('../config');
 const auth = require('./auth');
 
