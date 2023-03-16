@@ -22,7 +22,7 @@ let requestLogger, errorLogger;
 if (process.env.NODE_ENV === 'production') {
   let transports = [
     new winston.transports.File({
-      level: 'info',
+      level: 'debug',
       filename: config.LOG_FILENAME,
       json: false,
       prettyPrint: true
