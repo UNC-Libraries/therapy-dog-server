@@ -1,6 +1,6 @@
 'use strict';
 
-const Promise = require('bluebird');
+const bluebirdPromise = require('bluebird');
 const validator = require('validator');
 const he = require('he');
 const xssFilters = require('xss-filters');
@@ -83,7 +83,7 @@ function mapBlocks(blocks, iterator) {
 }
 
 function reduceValues(blocks, values, iterator, initial) {
-  return Promise.reduce(blocks, function(result, block) {
+  return bluebirdPromise.reduce(blocks, function(result, block) {
     return iterator(result, block, values[block.key], (children, value, initial) => reduceValues(children, value, iterator, initial));
   }, initial);
 }

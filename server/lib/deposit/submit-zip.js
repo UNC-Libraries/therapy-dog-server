@@ -14,7 +14,6 @@
 'use strict';
 
 const fs = require('fs');
-const Promise = require('bluebird');
 const request = require('request');
 const archiver = require('archiver');
 const tmp = require('tmp');
@@ -27,7 +26,7 @@ tmp.setGracefulCleanup();
 function makeZip(submission) {
   return new Promise(function(resolve, reject) {
     tmp.tmpName(options, function(err, zipFile) {
-      /* istanbul ignore next */
+      /* nyc ignore next */
       if (err) {
         reject(err);
         return;
@@ -42,7 +41,7 @@ function makeZip(submission) {
       let archive = archiver.create('zip', {});
       archive.pipe(output);
 
-      /* istanbul ignore next */
+      /* nyc ignore next */
       archive.on('error', function(err) {
         reject(err);
       });
@@ -95,7 +94,7 @@ function postZip(form, zipFile, depositorEmail) {
         sendImmediately: true
       }
     }, function(err, response, body) {
-      /* istanbul ignore if */
+      /* nyc ignore if */
       if (err) {
         // Ignoring ECONNRESETs for the purpose of determining if the deposit failed
         // as SWORD in some containers closes connections in a way that results in this

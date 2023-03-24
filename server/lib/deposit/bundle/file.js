@@ -2,7 +2,6 @@
 
 const crypto = require('crypto');
 const fs = require('fs');
-const Promise = require('bluebird');
 const uuid = require('uuid');
 const Upload = require('../../models/upload');
 

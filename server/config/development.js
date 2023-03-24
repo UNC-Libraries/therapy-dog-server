@@ -13,7 +13,6 @@
 // limitations under the License.
 'use strict';
 
-const os = require('os');
 const path = require('path');
 
 module.exports = {
@@ -24,9 +23,9 @@ module.exports = {
   SWORD_PASSWORD: 'depositforms',
   SITE_URL: 'https://example.com',
   GROUPS_BASE: 'unc:app:lib:cdr:depositor:depositforms',
-  FORMS_DIRECTORY: path.join(__dirname, '../data/forms'),
-  VOCABULARIES_DIRECTORY: path.join(__dirname, '../data/vocabularies'),
-  UPLOADS_DIRECTORY: path.join(__dirname, '../data/uploads'),
+  FORMS_DIRECTORY: path.resolve('./data/forms'),
+  VOCABULARIES_DIRECTORY: path.resolve('./data/vocabularies'),
+  UPLOADS_DIRECTORY: path.resolve('./data/uploads'),
   FROM_EMAIL: 'admin@example.com',
   MAILER_CONNECTION_URL: 'smtp://localhost:1025',
   DEBUG: true
