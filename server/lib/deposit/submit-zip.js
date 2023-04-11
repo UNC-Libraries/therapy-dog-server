@@ -39,6 +39,7 @@ function makeZip(submission) {
       let output = fs.createWriteStream(zipFile);
 
       output.on('close', function() {
+        logging.error("makeZip archive close ");
         resolve(zipFile);
       });
 
@@ -47,15 +48,23 @@ function makeZip(submission) {
 
       /* nyc ignore next */
       archive.on('error', function(err) {
+        logging.error("makeZip archive error " + err);
         reject(err);
+      });
+
+      archive.on('warning', function(err) {
+        logging.error("makeZip archive warn " + err);
       });
 
       Object.keys(submission).forEach(function(name) {
         if (submission[name] instanceof Buffer) {
+          logging.error("makeZip archive append buffer " + name);
           archive.append(submission[name], { name: name });
         } else {
+          logging.error("makeZip archive append " + name);
           archive.append(fs.createReadStream(submission[name]), { name: name });
           fs.unlink(submission[name], (err) => {
+            logging.error("makeZip archive append unlink " + name + " " + err);
             if (err) {
               throw err;
             }
@@ -64,8 +73,18 @@ function makeZip(submission) {
       });
       logging.error("makeZip finish ");
 
-      archive.finalize();
+      try {
+        archive.finalize();
+      } catch (err) {
+        logging.error("makeZip catch " + err);
+      } finally {
+        logging.error("makeZip finally ");
+      }
+      
+
+      logging.error("makeZip FINAL ");
     });
+    logging.error("makeZip tmpName done ");
   });
 }
 
@@ -143,10 +162,18 @@ function postZip(form, zipFile, depositorEmail) {
  * @return {Promise}
  */
 function submitZip(form, submission, depositorEmail) {
-  return makeZip(submission)
+  try {
+    return makeZip(submission)
     .then(function(zipFile) {
+      logging.error("submitZip then ");
       return postZip(form, zipFile, depositorEmail);
     });
+  } catch (err) {
+    logging.error("submitZip catch " + err);
+  } finally {
+    logging.error("submitZip finally ");
+  }
+  
 }
 
 module.exports = submitZip;
