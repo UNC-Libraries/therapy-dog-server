@@ -166,6 +166,9 @@ function submitZip(form, submission, depositorEmail) {
     .then(function(zipFile) {
       logging.error("submitZip then ");
       return postZip(form, zipFile, depositorEmail);
+    }).catch(function(err) {
+      logging.error("submitZip error " + err);
+      next(err);
     });
   } catch (err) {
     logging.error("submitZip catch " + err);
