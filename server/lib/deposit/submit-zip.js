@@ -78,9 +78,8 @@ function makeZip(submission) {
       } catch (err) {
         logging.error("makeZip catch " + err);
       } finally {
-        logging.error("makeZip finally ");
+        logging.error("makeZip finally " + (new Error()).stack);
       }
-      
 
       logging.error("makeZip FINAL ");
     });

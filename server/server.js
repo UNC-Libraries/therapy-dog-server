@@ -47,3 +47,8 @@ app.use(function(err, req, res, next) {
 let server = app.listen(config.PORT, config.HOST, function() {
   logging.info('Server started on %s:%s', server.address().address, server.address().port);
 });
+logging.info('Post start');
+server.once('close', function(){
+  logging.info('Closing server');
+  process.exit(2);
+});
