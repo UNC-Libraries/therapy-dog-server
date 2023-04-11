@@ -18,7 +18,7 @@ const path = require('path');
 const fs = bluebirdPromise.promisifyAll(require('fs'));
 const assert = require('assert');
 const ModelNotFoundError = require('../errors').ModelNotFoundError;
-const logging = require('../../lib/logging');
+const logging = require('../logging');
 
 /**
  * Look in the directory for a file named by id with the extension ".json" and attempt to create a new instance using the constructor, passing the id and the parsed JSON contents of the file. Return a Promise resolving to the new instance.

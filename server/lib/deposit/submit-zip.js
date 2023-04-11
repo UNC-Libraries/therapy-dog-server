@@ -19,7 +19,7 @@ const archiver = require('archiver');
 const tmp = require('tmp');
 const config = require('../../config');
 const SwordError = require('../errors').SwordError;
-const logging = require('../lib/logging');
+const logging = require('../logging');
 
 var options = { tmpdir: config.UPLOADS_DIRECTORY }
 tmp.setGracefulCleanup();

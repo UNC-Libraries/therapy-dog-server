@@ -14,7 +14,7 @@
 'use strict';
 
 const Upload = require('../models/upload');
-const logging = require('../../lib/logging');
+const logging = require('../logging');
 
 exports.create = function(req, res, next) {
   Upload.createFromFile(req.file)
