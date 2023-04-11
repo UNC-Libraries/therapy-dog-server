@@ -19,13 +19,17 @@ const archiver = require('archiver');
 const tmp = require('tmp');
 const config = require('../../config');
 const SwordError = require('../errors').SwordError;
+const logging = require('../lib/logging');
 
 var options = { tmpdir: config.UPLOADS_DIRECTORY }
 tmp.setGracefulCleanup();
 
 function makeZip(submission) {
   return new Promise(function(resolve, reject) {
+    logging.error("makeZip time");
     tmp.tmpName(options, function(err, zipFile) {
+      logging.error("makeZip tmpName " + err);
+      logging.error("makeZip zip " + zipFile);
       /* nyc ignore next */
       if (err) {
         reject(err);
@@ -58,6 +62,7 @@ function makeZip(submission) {
           });
         }
       });
+      logging.error("makeZip finish ");
 
       archive.finalize();
     });
@@ -65,7 +70,9 @@ function makeZip(submission) {
 }
 
 function postZip(form, zipFile, depositorEmail) {
+  logging.error("postZip Begin ");
   return new Promise(function(resolve, reject) {
+    logging.error("postZip promising ");
     let body = fs.readFileSync(zipFile);
     let headers = {
       'Packaging': 'http://cdr.unc.edu/METS/profiles/Simple',
@@ -82,6 +89,7 @@ function postZip(form, zipFile, depositorEmail) {
         headers['forwardedGroups'] += ';' + form.isMemberOf;
       }
     }
+    logging.error("postZip about to post ");
 
     request.post(form.destination, {
       strictSSL: false,
@@ -94,8 +102,10 @@ function postZip(form, zipFile, depositorEmail) {
         sendImmediately: true
       }
     }, function(err, response, body) {
+      logging.error("postZip posted ");
       /* nyc ignore if */
       if (err) {
+        logging.error("postZip err " + err);
         // Ignoring ECONNRESETs for the purpose of determining if the deposit failed
         // as SWORD in some containers closes connections in a way that results in this
         // error while the deposit actually succeeds
@@ -105,11 +115,13 @@ function postZip(form, zipFile, depositorEmail) {
           reject(err);
         }
       } else if (response.statusCode !== 201) {
+        logging.error("postZip status bad " + response.statusCode);
         reject(new SwordError('Received error response from SWORD endpoint', {
           statusCode: response.statusCode,
           body: body
         }));
       } else {
+        logging.error("postZip good? ");
         resolve();
         fs.unlink(zipFile, (err) => {
           if (err) {

@@ -86,7 +86,10 @@ exports.create = function(req, res, next) {
 
   // Submit the deposit, send email notifications, send response.
   bluebirdPromise.join(form, submission, deposit.depositorEmail, submitZip)
-    .then(() => { res.status(204).end(); })
+    .then(() => { 
+      logging.error(" submitzip promise then");
+      res.status(204).end(); 
+    })
     .then(() => Promise.all(sendNotifications))
     .catch(function(err) {
       logging.error("got an error " + err);
