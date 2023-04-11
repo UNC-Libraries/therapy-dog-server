@@ -82,11 +82,14 @@ exports.create = function(req, res, next) {
     );
   }
 
+  logging.error("Preparing to start submitzip promise ");
+
   // Submit the deposit, send email notifications, send response.
   bluebirdPromise.join(form, submission, deposit.depositorEmail, submitZip)
     .then(() => { res.status(204).end(); })
     .then(() => Promise.all(sendNotifications))
     .catch(function(err) {
+      logging.error("got an error " + err);
       if (err instanceof SwordError) {
         logging.error('Received error response from SWORD endpoint: %s', err.extra.body);
       }

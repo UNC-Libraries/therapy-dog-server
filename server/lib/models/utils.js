@@ -18,6 +18,7 @@ const path = require('path');
 const fs = bluebirdPromise.promisifyAll(require('fs'));
 const assert = require('assert');
 const ModelNotFoundError = require('../errors').ModelNotFoundError;
+const logging = require('../../lib/logging');
 
 /**
  * Look in the directory for a file named by id with the extension ".json" and attempt to create a new instance using the constructor, passing the id and the parsed JSON contents of the file. Return a Promise resolving to the new instance.
@@ -34,17 +35,23 @@ exports.findById = function(directory, constructor, id) {
     assert(typeof id === 'string', 'id must be a string');
     assert(id.indexOf(path.sep) === -1, 'id must not contain the path separator');
 
+    logging.error("Getting the form " + id);
+    console.log('***Is this thing being called?', id + '.json');
     let filename = path.join(directory, id + '.json');
+    console.log('***Got a filename?', filename);
 
     return fs.accessAsync(filename, fs.R_OK)
       .then(function() {
+        console.log('Are we okay?', id);
         return fs.readFileAsync(filename, 'utf8');
       })
       .then(function(data) {
+        console.log('Then?', id);
         return new constructor(id, JSON.parse(data));
       });
   })
     .catch(function(err) {
+      console.log('Boom?', id);
       throw new ModelNotFoundError(`Couldn't load "${id}": ${err.message}`, { cause: err, directory, constructor, id });
     });
 };

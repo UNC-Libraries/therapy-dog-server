@@ -14,13 +14,16 @@
 'use strict';
 
 const Upload = require('../models/upload');
+const logging = require('../../lib/logging');
 
 exports.create = function(req, res, next) {
   Upload.createFromFile(req.file)
     .then(function(upload) {
+      logging.error("uploading ");
       return upload.getResourceObject();
     })
     .then(function(data) {
+      logging.error("uploading with data");
       res.header('Content-Type', 'application/vnd.api+json');
       res.send(Buffer.from(JSON.stringify({ data: data })));
     })
