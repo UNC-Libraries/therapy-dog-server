@@ -29,7 +29,8 @@ function makeZip(submission) {
     tmp.tmpName(options, function(err, zipFile) {
       /* nyc ignore next */
       if (err) {
-        reject(err);
+        logging.error('makeZip initial error ' + err);
+      //   reject(err);
         return;
       }
 
@@ -132,6 +133,10 @@ function submitZip(form, submission, depositorEmail) {
   return makeZip(submission)
     .then(function(zipFile) {
       return postZip(form, zipFile, depositorEmail);
+    })
+    .catch(function(err) {
+      logging.error("submitZip error " + err);
+      next(err);
     });
 }
 
