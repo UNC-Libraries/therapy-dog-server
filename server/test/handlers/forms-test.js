@@ -34,11 +34,11 @@ describe('Forms handler', function() {
     response.on('end', function() {
       assert.equal(200, response.statusCode);
 
-      let document = JSON.parse(response._getData());
-      assert.equal('article', document.data.id);
-      assert.equal('Article Form', document.data.attributes.title);
-      assert.equal(undefined, document.data.attributes.children);
-      assert.equal(undefined, document.meta.authorized);
+      let submission = JSON.parse(response._getData());
+      assert.equal('article', submission.data.id);
+      assert.equal('Article Form', submission.data.attributes.title);
+      assert.equal(undefined, submission.data.attributes.children);
+      assert.equal(undefined, submission.meta.authorized);
 
       done();
     });
@@ -63,12 +63,12 @@ describe('Forms handler', function() {
     response.on('end', function() {
       assert.equal(200, response.statusCode, done);
 
-      let document = JSON.parse(response._getData());
-      assert.equal('article', document.data.id);
-      assert.equal('Article Form', document.data.attributes.title);
-      assert.ok(Array.isArray(document.data.attributes.children), 'children attribute should be an array');
-      assert.equal('someone', document.meta.authorized);
-      assert.equal('someone@example.com', document.meta.mail);
+      let submission = JSON.parse(response._getData());
+      assert.equal('article', submission.data.id);
+      assert.equal('Article Form', submission.data.attributes.title);
+      assert.ok(Array.isArray(submission.data.attributes.children), 'children attribute should be an array');
+      assert.equal('someone', submission.meta.authorized);
+      assert.equal('someone@example.com', submission.meta.mail);
 
       done();
     });

@@ -13,7 +13,7 @@
 // limitations under the License.
 'use strict';
 
-const Promise = require('bluebird');
+const bluebirdPromise = require('bluebird');
 const Form = require('../models/form');
 const generateBundle = require('../deposit/generate-bundle');
 const generateSubmission = require('../deposit/generate-submission');
@@ -67,23 +67,23 @@ exports.create = function(req, res, next) {
   let inputSummary = form.then(f => f.summarizeInput(deposit.values));
 
   // Generate a bundle and submission...
-  let bundle = Promise.join(form, input, depositorSignature, generateBundle);
-  let submission = Promise.join(form, bundle, generateSubmission);
+  let bundle = bluebirdPromise.join(form, input, depositorSignature, generateBundle);
+  let submission = bluebirdPromise.join(form, bundle, generateSubmission);
 
   // Collect notification recipients...
-  let notificationRecipientEmails = Promise.join(form, input, collectNotificationRecipientEmails);
+  let notificationRecipientEmails = bluebirdPromise.join(form, input, collectNotificationRecipientEmails);
   let sendNotifications = [
-    Promise.join(form, inputSummary, notificationRecipientEmails, mailer.sendDepositNotification)
+    bluebirdPromise.join(form, inputSummary, notificationRecipientEmails, mailer.sendDepositNotification)
   ];
 
   if (deposit.sendEmailReceipt) {
     sendNotifications.push(
-      Promise.join(form, inputSummary, deposit.depositorEmail, mailer.sendDepositReceipt)
+      bluebirdPromise.join(form, inputSummary, deposit.depositorEmail, mailer.sendDepositReceipt)
     );
   }
 
   // Submit the deposit, send email notifications, send response.
-  Promise.join(form, submission, deposit.depositorEmail, submitZip)
+  bluebirdPromise.join(form, submission, deposit.depositorEmail, submitZip)
     .then(() => { res.status(204).end(); })
     .then(() => Promise.all(sendNotifications))
     .catch(function(err) {
@@ -106,8 +106,8 @@ exports.debug = function(req, res, next) {
   let input = form.then(f => f.deserializeInput(f.sanitizeInput(deposit.values)));
 
   // Generate a bundle and submission...
-  let bundle = Promise.join(form, input, depositorSignature, generateBundle);
-  let submission = Promise.join(form, bundle, generateSubmission);
+  let bundle = bluebirdPromise.join(form, input, depositorSignature, generateBundle);
+  let submission = bluebirdPromise.join(form, bundle, generateSubmission);
 
   // Respond with the METS.
   submission

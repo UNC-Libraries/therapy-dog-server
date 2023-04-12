@@ -16,7 +16,7 @@ Install Node.js.
 
 If you are using Homebrew on macOS:
 
-    brew install node12-lts
+    brew install node16-lts
 
 If you are using Git for Windows, install Node.js using the v4.x.x LTS package available at <https://nodejs.org/en/>.
 

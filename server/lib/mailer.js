@@ -15,7 +15,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const Promise = require('bluebird');
+const bluebirdPromise = require('bluebird');
 const Handlebars = require('handlebars');
 const nodemailer = require('nodemailer');
 const stubTransport = require('nodemailer-stub-transport');
@@ -81,7 +81,7 @@ function depositNotificationSender(context) {
  * @return {Promise}
  **/
 exports.sendDepositReceipt = function(form, summary, address) {
-  return Promise.try(function() {
+  return bluebirdPromise.try(function() {
     return depositReceiptSender({ form: form, items: summary, siteUrl: config.SITE_URL, to: address });
   });
 };
@@ -95,7 +95,7 @@ exports.sendDepositReceipt = function(form, summary, address) {
  * @return {Promise}
  **/
 exports.sendDepositNotification = function(form, summary, addresses) {
-  return Promise.try(function() {
+  return bluebirdPromise.try(function() {
     if (addresses.length > 0) {
       return depositNotificationSender({ form: form, items: summary, siteUrl: config.SITE_URL, to: addresses });
     }

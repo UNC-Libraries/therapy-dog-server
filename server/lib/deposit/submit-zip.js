@@ -14,12 +14,12 @@
 'use strict';
 
 const fs = require('fs');
-const Promise = require('bluebird');
 const request = require('request');
-const archiver = require('archiver');
 const tmp = require('tmp');
 const config = require('../../config');
 const SwordError = require('../errors').SwordError;
+const logging = require('../logging');
+const AdmZip = require('adm-zip');
 
 var options = { tmpdir: config.UPLOADS_DIRECTORY }
 tmp.setGracefulCleanup();
@@ -27,40 +27,32 @@ tmp.setGracefulCleanup();
 function makeZip(submission) {
   return new Promise(function(resolve, reject) {
     tmp.tmpName(options, function(err, zipFile) {
-      /* istanbul ignore next */
+      /* nyc ignore next */
       if (err) {
         reject(err);
         return;
       }
 
-      let output = fs.createWriteStream(zipFile);
-
-      output.on('close', function() {
-        resolve(zipFile);
-      });
-
-      let archive = archiver.create('zip', {});
-      archive.pipe(output);
-
-      /* istanbul ignore next */
-      archive.on('error', function(err) {
-        reject(err);
-      });
+      var zip = new AdmZip();
 
       Object.keys(submission).forEach(function(name) {
         if (submission[name] instanceof Buffer) {
-          archive.append(submission[name], { name: name });
+          zip.addFile(name, submission[name]);
         } else {
-          archive.append(fs.createReadStream(submission[name]), { name: name });
+          const content = fs.readFileSync(submission[name]);
+          zip.addFile(name, content);
           fs.unlink(submission[name], (err) => {
+            logging.debug('makeZip archive append unlink ' + name + ' ' + err);
             if (err) {
               throw err;
             }
           });
+          logging.error('makeZip archive after unlink ' + name);
         }
       });
-
-      archive.finalize();
+      logging.debug('makeZip writeZip ' + zipFile);
+      zip.writeZip(zipFile);
+      resolve(zipFile);
     });
   });
 }
@@ -95,7 +87,7 @@ function postZip(form, zipFile, depositorEmail) {
         sendImmediately: true
       }
     }, function(err, response, body) {
-      /* istanbul ignore if */
+      /* nyc ignore if */
       if (err) {
         // Ignoring ECONNRESETs for the purpose of determining if the deposit failed
         // as SWORD in some containers closes connections in a way that results in this

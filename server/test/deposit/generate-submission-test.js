@@ -15,7 +15,7 @@
 
 const assert = require('assert');
 const xpath = require('xpath');
-const DOMParser = require('xmldom').DOMParser;
+const DOMParser = require('@xmldom/xmldom').DOMParser;
 const Form = require('../../lib/models/form');
 const File = require('../../lib/deposit/bundle/file');
 const generateSubmission = require('../../lib/deposit/generate-submission');

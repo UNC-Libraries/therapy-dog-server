@@ -1,6 +1,5 @@
 'use strict';
 
-const Promise = require('bluebird');
 const checker = require('../../checker');
 const Vocabulary = require('../vocabulary');
 

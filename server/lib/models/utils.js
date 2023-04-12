@@ -13,9 +13,9 @@
 // limitations under the License.
 'use strict';
 
-const Promise = require('bluebird');
+const bluebirdPromise = require('bluebird');
 const path = require('path');
-const fs = Promise.promisifyAll(require('fs'));
+const fs = bluebirdPromise.promisifyAll(require('fs'));
 const assert = require('assert');
 const ModelNotFoundError = require('../errors').ModelNotFoundError;
 
@@ -30,7 +30,7 @@ const ModelNotFoundError = require('../errors').ModelNotFoundError;
  * @throws {ModelNotFoundError} If the identifier is invalid or would cause the function to access a file outside the `directory`, or the file cannot be found or read, or there is a JSON parsing error, or the constructor throws an error.
  */
 exports.findById = function(directory, constructor, id) {
-  return Promise.try(function() {
+  return bluebirdPromise.try(function() {
     assert(typeof id === 'string', 'id must be a string');
     assert(id.indexOf(path.sep) === -1, 'id must not contain the path separator');
 
