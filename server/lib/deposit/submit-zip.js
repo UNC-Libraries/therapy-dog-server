@@ -161,21 +161,14 @@ function postZip(form, zipFile, depositorEmail) {
  * @return {Promise}
  */
 function submitZip(form, submission, depositorEmail) {
-  try {
-    return makeZip(submission)
-    .then(function(zipFile) {
-      logging.error("submitZip then ");
-      return postZip(form, zipFile, depositorEmail);
-    }).catch(function(err) {
-      logging.error("submitZip error " + err);
-      next(err);
-    });
-  } catch (err) {
-    logging.error("submitZip catch " + err);
-  } finally {
-    logging.error("submitZip finally ");
-  }
-  
+  return makeZip(submission)
+  .then(function(zipFile) {
+    logging.error("submitZip then ");
+    return postZip(form, zipFile, depositorEmail);
+  }).catch(function(err) {
+    logging.error("submitZip error " + err);
+    next(err);
+  });
 }
 
 module.exports = submitZip;

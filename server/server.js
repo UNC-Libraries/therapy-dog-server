@@ -46,6 +46,7 @@ app.use(function(err, req, res, next) {
 
 process.on('uncaughtException', function (err) {
   logging.info('Uncaught exception ' + err);
+  logging.info('Uncaught exception stack ' + err.stack);
 });
 
 let server = app.listen(config.PORT, config.HOST, function() {
