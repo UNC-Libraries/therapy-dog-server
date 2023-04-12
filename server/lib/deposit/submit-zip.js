@@ -31,27 +31,26 @@ function makeZip(submission) {
     tmp.tmpName(options, function(err, zipFile) {
       var zip = new AdmZip();
 
-      // const zip = zlib.createGzip();
-      // const writeStream = fs.createWriteStream(zipFile);
-
       Object.keys(submission).forEach(function(name) {
         logging.error("makeZip loop " + name);
         if (submission[name] instanceof Buffer) {
-          zip.addFile(name, submission[name], "comment");
+          zip.addFile(name, submission[name]);
           logging.error("makeZip archive append buffer " + name);
         } else {
-          zip.addLocalFile(submission[name]);
-          logging.error("makeZip archive append " + name);
+          zip.addLocalFile(submission[name], name);
+          logging.error("makeZip archive append " + name + " | " + submission[name]);
           // fs.unlink(submission[name], (err) => {
           //   logging.error("makeZip archive append unlink " + name + " " + err);
           //   if (err) {
           //     throw err;
           //   }
           // });
-          logging.error("makeZip archive after unlink " + name);
+          // logging.error("makeZip archive after unlink " + name);
         }
       });
+      logging.error("makeZip writeZip " + zipFile);
       zip.writeZip(zipFile);
+      logging.error("makeZip resolve " + zipFile);
       resolve(zipFile);
 
 
@@ -128,7 +127,7 @@ function makeZip(submission) {
 }
 
 function postZip(form, zipFile, depositorEmail) {
-  logging.error("postZip Begin ");
+  logging.error("postZip Begin " + zipFile);
   return new Promise(function(resolve, reject) {
     logging.error("postZip promising ");
     let body = fs.readFileSync(zipFile);
