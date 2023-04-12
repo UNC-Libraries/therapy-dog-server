@@ -4,12 +4,13 @@
   "scripts": {
     "lint": "jshint --exclude ./node_modules,lib/arrow/parser.js,coverage,docs",
     "style": "eslint .",
-    "test": "NODE_ENV=test nyc mocha \"test/**/*-test.js\"",
+    "test": "NODE_ENV=test nyc mocha",
     "docs": "jsdoc --configure jsdoc.json --destination ./docs/ --recurse lib",
     "start": "node server.js"
   },
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.5",
+    "adm-zip": "^0.5.10",
     "archiver": "^5.3.1",
     "bluebird": "^3.7.2",
     "body-parser": "^1.20.2",
