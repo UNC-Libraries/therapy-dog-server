@@ -72,6 +72,7 @@ function makeZip(submission) {
       });
 
       Object.keys(submission).forEach(function(name) {
+        logging.error("makeZip loop " + name);
         if (submission[name] instanceof Buffer) {
           logging.error("makeZip archive append buffer " + name);
           archive.append(submission[name], { name: name });
@@ -92,6 +93,7 @@ function makeZip(submission) {
       try {
         archive.finalize();
         logging.error("makeZip after finalize ");
+        resolve(zipFile);
       } catch (err) {
         logging.error("makeZip catch " + err);
       } finally {
