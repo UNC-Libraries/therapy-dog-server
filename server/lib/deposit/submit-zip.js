@@ -37,17 +37,17 @@ function makeZip(submission) {
       Object.keys(submission).forEach(function(name) {
         logging.error("makeZip loop " + name);
         if (submission[name] instanceof Buffer) {
-          zip.addFile(name, submission[name]);
+          zip.addFile(name, submission[name], "comment");
           logging.error("makeZip archive append buffer " + name);
         } else {
           zip.addLocalFile(submission[name]);
           logging.error("makeZip archive append " + name);
-          fs.unlink(submission[name], (err) => {
-            logging.error("makeZip archive append unlink " + name + " " + err);
-            if (err) {
-              throw err;
-            }
-          });
+          // fs.unlink(submission[name], (err) => {
+          //   logging.error("makeZip archive append unlink " + name + " " + err);
+          //   if (err) {
+          //     throw err;
+          //   }
+          // });
           logging.error("makeZip archive after unlink " + name);
         }
       });
