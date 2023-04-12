@@ -44,6 +44,10 @@ app.use(function(err, req, res, next) {
   res.send(Buffer.from(JSON.stringify({ errors: [ { status: '500', title: 'Internal server error' } ] })));
 });
 
+process.on('uncaughtException', function (err) {
+  logging.info('Uncaught exception ' + err);
+});
+
 let server = app.listen(config.PORT, config.HOST, function() {
   logging.info('Server started on %s:%s', server.address().address, server.address().port);
 });
