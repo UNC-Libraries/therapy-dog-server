@@ -90,15 +90,9 @@ function makeZip(submission) {
       });
       logging.error("makeZip finish ");
 
-      try {
-        archive.finalize();
-        logging.error("makeZip after finalize ");
-        resolve(zipFile);
-      } catch (err) {
-        logging.error("makeZip catch " + err);
-      } finally {
-        logging.error("makeZip finally ");
-      }
+      archive.finalize();
+      logging.error("makeZip after finalize ");
+      resolve(zipFile);
 
       logging.error("makeZip FINAL ");
     });
