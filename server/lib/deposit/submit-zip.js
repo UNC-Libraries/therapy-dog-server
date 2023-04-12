@@ -37,7 +37,8 @@ function makeZip(submission) {
           zip.addFile(name, submission[name]);
           logging.error("makeZip archive append buffer " + name);
         } else {
-          zip.addLocalFile(submission[name], name);
+          zip.addFile(name, fs.createReadStream(submission[name]));
+          // zip.addLocalFile(submission[name], name);
           logging.error("makeZip archive append " + name + " | " + submission[name]);
           // fs.unlink(submission[name], (err) => {
           //   logging.error("makeZip archive append unlink " + name + " " + err);
