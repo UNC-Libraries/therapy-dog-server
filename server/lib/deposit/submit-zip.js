@@ -69,16 +69,18 @@ function makeZip(submission) {
               throw err;
             }
           });
+          logging.error("makeZip archive after unlink " + name);
         }
       });
       logging.error("makeZip finish ");
 
       try {
-        archive.finalize();
+        result = archive.finalize();
+        logging.error("makeZip after finalize " + result);
       } catch (err) {
         logging.error("makeZip catch " + err);
       } finally {
-        logging.error("makeZip finally " + (new Error()).stack);
+        logging.error("makeZip finally ");
       }
 
       logging.error("makeZip FINAL ");
