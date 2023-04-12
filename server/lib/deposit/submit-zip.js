@@ -39,13 +39,18 @@ function makeZip(submission) {
       let output = fs.createWriteStream(zipFile);
 
       output.on('error', function(err) {
+        reject(err);
         logging.error("error on output file " + err);
         logging.error("error on output file stack " + err.stack);
         logging.error("error on output file fake " + (new Error()).stack);
       });
 
+      output.on('end', function() {
+        logging.error("makeZip output end ");
+      });
+
       output.on('close', function() {
-        logging.error("makeZip archive close ");
+        logging.error("makeZip output close ");
         resolve(zipFile);
       });
 
@@ -60,6 +65,10 @@ function makeZip(submission) {
 
       archive.on('warning', function(err) {
         logging.error("makeZip archive warn " + err);
+      });
+
+      archive.on('close', function() {
+        logging.error("makeZip archive close ");
       });
 
       Object.keys(submission).forEach(function(name) {
