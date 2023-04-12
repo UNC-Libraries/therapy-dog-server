@@ -75,8 +75,8 @@ function makeZip(submission) {
       logging.error("makeZip finish ");
 
       try {
-        result = archive.finalize();
-        logging.error("makeZip after finalize " + result);
+        archive.finalize();
+        logging.error("makeZip after finalize ");
       } catch (err) {
         logging.error("makeZip catch " + err);
       } finally {
