@@ -15,11 +15,12 @@
 
 const fs = require('fs');
 const request = require('request');
-const archiver = require('archiver');
+// const archiver = require('archiver');
 const tmp = require('tmp');
 const config = require('../../config');
 const SwordError = require('../errors').SwordError;
 const logging = require('../logging');
+var AdmZip = require("adm-zip");
 
 var options = { tmpdir: config.UPLOADS_DIRECTORY }
 tmp.setGracefulCleanup();
@@ -28,57 +29,19 @@ function makeZip(submission) {
   return new Promise(function(resolve, reject) {
     logging.error("makeZip time");
     tmp.tmpName(options, function(err, zipFile) {
-      logging.error("makeZip tmpName " + err);
-      logging.error("makeZip zip " + zipFile);
-      /* nyc ignore next */
-      if (err) {
-        reject(err);
-        return;
-      }
+      var zip = new AdmZip();
 
-      let output = fs.createWriteStream(zipFile);
-
-      output.on('error', function(err) {
-        reject(err);
-        logging.error("error on output file " + err);
-        logging.error("error on output file stack " + err.stack);
-        logging.error("error on output file fake " + (new Error()).stack);
-      });
-
-      output.on('end', function() {
-        logging.error("makeZip output end ");
-      });
-
-      output.on('close', function() {
-        logging.error("makeZip output close ");
-        resolve(zipFile);
-      });
-
-      let archive = archiver.create('zip', {});
-      archive.pipe(output);
-
-      /* nyc ignore next */
-      archive.on('error', function(err) {
-        logging.error("makeZip archive error " + err);
-        reject(err);
-      });
-
-      archive.on('warning', function(err) {
-        logging.error("makeZip archive warn " + err);
-      });
-
-      archive.on('close', function() {
-        logging.error("makeZip archive close ");
-      });
+      // const zip = zlib.createGzip();
+      // const writeStream = fs.createWriteStream(zipFile);
 
       Object.keys(submission).forEach(function(name) {
         logging.error("makeZip loop " + name);
         if (submission[name] instanceof Buffer) {
+          zip.addFile(name, submission[name]);
           logging.error("makeZip archive append buffer " + name);
-          archive.append(submission[name], { name: name });
         } else {
+          zip.addLocalFile(submission[name]);
           logging.error("makeZip archive append " + name);
-          archive.append(fs.createReadStream(submission[name]), { name: name });
           fs.unlink(submission[name], (err) => {
             logging.error("makeZip archive append unlink " + name + " " + err);
             if (err) {
@@ -88,13 +51,77 @@ function makeZip(submission) {
           logging.error("makeZip archive after unlink " + name);
         }
       });
-      logging.error("makeZip finish ");
-
-      archive.finalize();
-      logging.error("makeZip after finalize ");
+      zip.writeZip(zipFile);
       resolve(zipFile);
 
-      logging.error("makeZip FINAL ");
+
+      // logging.error("makeZip tmpName " + err);
+      // logging.error("makeZip zip " + zipFile);
+      // /* nyc ignore next */
+      // if (err) {
+      //   reject(err);
+      //   return;
+      // }
+
+      // let output = fs.createWriteStream(zipFile);
+
+      // output.on('error', function(err) {
+      //   reject(err);
+      //   logging.error("error on output file " + err);
+      //   logging.error("error on output file stack " + err.stack);
+      //   logging.error("error on output file fake " + (new Error()).stack);
+      // });
+
+      // output.on('end', function() {
+      //   logging.error("makeZip output end ");
+      // });
+
+      // output.on('close', function() {
+      //   logging.error("makeZip output close ");
+      //   resolve(zipFile);
+      // });
+
+      // let archive = archiver.create('zip', {});
+      // archive.pipe(output);
+
+      // /* nyc ignore next */
+      // archive.on('error', function(err) {
+      //   logging.error("makeZip archive error " + err);
+      //   reject(err);
+      // });
+
+      // archive.on('warning', function(err) {
+      //   logging.error("makeZip archive warn " + err);
+      // });
+
+      // archive.on('close', function() {
+      //   logging.error("makeZip archive close ");
+      // });
+
+      // Object.keys(submission).forEach(function(name) {
+      //   logging.error("makeZip loop " + name);
+      //   if (submission[name] instanceof Buffer) {
+      //     logging.error("makeZip archive append buffer " + name);
+      //     archive.append(submission[name], { name: name });
+      //   } else {
+      //     logging.error("makeZip archive append " + name);
+      //     archive.append(fs.createReadStream(submission[name]), { name: name });
+      //     fs.unlink(submission[name], (err) => {
+      //       logging.error("makeZip archive append unlink " + name + " " + err);
+      //       if (err) {
+      //         throw err;
+      //       }
+      //     });
+      //     logging.error("makeZip archive after unlink " + name);
+      //   }
+      // });
+      // logging.error("makeZip finish ");
+
+      // archive.finalize();
+      // logging.error("makeZip after finalize ");
+      // resolve(zipFile);
+
+      // logging.error("makeZip FINAL ");
     });
     logging.error("makeZip tmpName done ");
   });
