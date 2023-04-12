@@ -38,6 +38,12 @@ function makeZip(submission) {
 
       let output = fs.createWriteStream(zipFile);
 
+      output.on('error', function(err) {
+        logging.error("error on output file " + err);
+        logging.error("error on output file stack " + err.stack);
+        logging.error("error on output file fake " + (new Error()).stack);
+      });
+
       output.on('close', function() {
         logging.error("makeZip archive close ");
         resolve(zipFile);
